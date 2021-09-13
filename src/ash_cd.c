@@ -3,17 +3,23 @@
 
 int no_argument();
 int multiple_arguments();
-char* extract_path();
-int invalid_path();
+void extract_path();
+void extract_target();
+int invalid_target();
 
 void ash_cd()
 {
-    // printf("parsed input = %s\n", parsed_input);
-
+    // Only 1 argument must be passed
     if(no_argument()) return;
     if(multiple_arguments()) return;
+
+    // Get target / destination
     extract_path();
-    if(invalid_path()) return;
+    extract_target();
+    if(invalid_target()) return;
+
+    strcpy(prev_dir, cwd);
+    chdir(target);
 }
 
 int no_argument()
@@ -39,18 +45,32 @@ int multiple_arguments()
     return 0;
 }
 
-char* extract_path()
+void extract_path()
 {
+    memset(path, 0, strlen(path));
     for(int i = 3 ; i < strlen(parsed_input) ; i++)
     {
         path[i-3] = parsed_input[i];
     }
+    strcpy(target, path);
 }
 
-int invalid_path()
+void extract_target()
+{
+    if(!strcmp(path, "~"))
+    {
+        strcpy(target, home);
+    }
+    if(!strcmp(path, "-"))
+    {
+        strcpy(target, prev_dir);
+    }
+}
+
+int invalid_target()
 {
     struct stat st;
-    if(stat(path, &st) != 0)
+    if(stat(target, &st) != 0)
 	{
 		printf("ash_cd: Path specified does not exist\n");
 		// newlerr();
