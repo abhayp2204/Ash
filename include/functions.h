@@ -3,12 +3,11 @@
 
 void ash_main();
 void ash_execute();
+void ash_clear();                   // Pending...
 void ash_cd();
 
 void display();
-void display_banner();
 void get_home();
-void Input();
 void trim_spaces(char *str);
 int is_space(char c);
 void get_command();

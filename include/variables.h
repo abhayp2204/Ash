@@ -8,6 +8,9 @@ char home[1024];
 char input[1024];
 char parsed_input[1024];
 char command[1024];
+char path[1024];
+char target[1024];
+char prev_dir[1024];
 
 int flag_exit = 0;
 
