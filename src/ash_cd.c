@@ -1,6 +1,7 @@
 #include "../include/functions.h"
 #include "../include/variables.h"
 
+// Functions
 int no_argument();
 int multiple_arguments();
 void extract_path();
@@ -18,6 +19,7 @@ void ash_cd()
     extract_target();
     if(invalid_target()) return;
 
+    // Go to target
     strcpy(prev_dir, cwd);
     chdir(target);
 }
