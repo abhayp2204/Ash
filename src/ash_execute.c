@@ -19,4 +19,6 @@ void ash_execute()
         ash_pwd();
     if(!strcmp(command, "echo"))
         ash_echo();
+    if(!strcmp(command, "ls"))
+        ash_ls();
 }

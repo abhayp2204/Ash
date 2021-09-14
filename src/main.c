@@ -12,6 +12,7 @@
 #include "ash_cd.c"
 #include "ash_pwd.c"
 #include "ash_echo.c"
+#include "ash_ls.c"
 
 int main()
 {
