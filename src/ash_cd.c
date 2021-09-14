@@ -10,8 +10,12 @@ int invalid_target();
 
 void ash_cd()
 {
-    // Only 1 argument must be passed
-    if(no_argument()) return;
+    // No argument : Go to home
+    if(no_argument())
+    {
+        chdir(home);
+        return;
+    }
     if(multiple_arguments()) return;
 
     // Get target / destination
@@ -26,12 +30,7 @@ void ash_cd()
 
 int no_argument()
 {
-    if(strlen(parsed_input) <= 3)
-    {
-        printf("ash_cd : No argument was given\n");
-        return 1;
-    }
-    return 0;
+    return strlen(parsed_input) <= 3;
 }
 
 int multiple_arguments()
