@@ -12,7 +12,11 @@ void ash_execute()
         flag_exit = 1;
         return;
     }
-    // cd
+    // Run commands
     if(!strcmp(command, "cd"))
         ash_cd();
+    if(!strcmp(command, "pwd"))
+        ash_pwd();
+    if(!strcmp(command, "echo"))
+        ash_echo();
 }

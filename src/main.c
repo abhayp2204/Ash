@@ -10,6 +10,8 @@
 #include "ash_main.c"
 #include "ash_execute.c"
 #include "ash_cd.c"
+#include "ash_pwd.c"
+#include "ash_echo.c"
 
 int main()
 {

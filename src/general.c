@@ -14,10 +14,17 @@ void get_home()
 // Auth
 void trim_spaces(char *str)
 {
+	// strcpy(str, replace_tab_with_space(str));
+	// printf("str = %s\n", str);
+
     int i, pos = 0;
 
 	for(i = 0; str[i]; ++i)
   	{
+		
+		if(is_tab(str[i]))
+			str[i] = ' ';
+
     	if(is_space(str[i]) && (i == 0 || is_space(str[i-1])))
     		;
     	else if(is_space(str[i]))
@@ -36,6 +43,11 @@ void trim_spaces(char *str)
 int is_space(char c)
 {
     return (c == ' ');
+}
+
+int is_tab(char c)
+{
+    return (c == '\t');
 }
 
 void get_command()
