@@ -1,17 +1,26 @@
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
+#include <errno.h>
+#include <unistd.h>
+#include <string.h>
+#include <dirent.h>
+#include <pwd.h>
+#include <grp.h>
+#include <fcntl.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 
 int main()
 {
-    char str[] = "Let's have some fun doing this";
+    struct dirent* d;
+    DIR* dh = opendir(".");
 
-    char* piece = strtok(str, " ");
-
-    while(piece)
+    while(d = readdir(dh))
     {
-        piece++;
-        printf("%s\n", piece);
-        piece = strtok(NULL, " ");
+        struct stat stats;
+        stat(d->d_name, &stats);
+
+        printf("%ld   ", stats.st_size);
+        printf("%s  \n", d->d_name);
     }
 }

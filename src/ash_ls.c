@@ -8,10 +8,14 @@ int flag_invalid = 0;
 void find_flags();
 void reset_flags();
 void ls(const char* dir);
+void display_total(const char* dir);
 void display_permissions(struct stat stats, struct dirent* d);
 void display_number_of_links(struct stat stats, struct dirent* d);
 void display_user_name(struct stat stats, struct dirent* d);
 void display_group_name(struct stat stats, struct dirent* d);
+void display_size(struct stat stats, struct dirent* d);
+void display_date_modified(struct stat stats, struct dirent* d);
+char* get_month(char month[]);
 
 void ash_ls()
 {
@@ -85,8 +89,13 @@ void ls(const char* dir)
     }
 
     struct stat stats;
+    display_total(dir);
+    dh = opendir(dir);
+
     while(d = readdir(dh))
     {
+        struct stat stats;
+
         // Skip hidden files unless -a is specified
         if(!flag_a && d->d_name[0] == '.')
             continue;
@@ -95,16 +104,49 @@ void ls(const char* dir)
         {
             display_permissions(stats, d);
             display_number_of_links(stats, d);
-
-            // Root???
             display_user_name(stats, d);
             display_group_name(stats, d);
-
-            
+            display_size(stats, d);
+            display_date_modified(stats, d);
         }
-        printf("%s  \n", d->d_name);
+        printf("%s  ", d->d_name);
+        if(flag_l)
+            printf("\n");
     }
-    printf("\n");
+    if(!flag_l)
+        printf("\n");
+}
+
+void display_total(const char* dir)
+{
+    DIR* dh = opendir(dir);
+    struct dirent* d;
+    struct stat stats;
+
+    int total = 0;
+    
+    if(!dir)
+        return;
+
+    while(d = readdir(dh))
+    {
+        // Ignore hidden files
+        if(d->d_name[0] == '.')
+            continue;
+        
+        // Create the path to stat
+        char info_path[PATH_MAX + 1];
+        strcpy(info_path, dir);
+        
+        if(dir[strlen(dir) - 1] != '/')
+           strcat(info_path, "/");
+        strcat(info_path, d->d_name);
+
+        // Increment total
+        stat(info_path, &stats);
+        total += stats.st_blocks;
+    }
+    printf("total %d\n", total/2);
 }
 
 void display_permissions(struct stat stats, struct dirent* d)
@@ -146,6 +188,56 @@ void display_user_name(struct stat stats, struct dirent* d)
 
 void display_group_name(struct stat stats, struct dirent* d)
 {
-    struct passwd *user = getpwuid(stats.st_uid);
+    struct group *group = getgrgid(stats.st_gid);
     printf("%s   ", group->gr_name);
+}
+
+void display_size(struct stat stats, struct dirent* d)
+{
+    stat(d->d_name, &stats);
+    printf("%ld\t", stats.st_size);
+}
+
+void display_date_modified(struct stat stats, struct dirent* d)
+{
+    stat(d->d_name, &stats);
+
+    char month_number[3];
+    strftime(month_number, sizeof(month_number), "%m", localtime(&stats.st_mtime));
+
+    char month[3];
+    strcpy(month, get_month(month_number));
+    printf("%s ", month);
+
+    char time[10];
+    strftime(time, sizeof(time), "%H:%M", localtime(&stats.st_mtime));
+    printf("%s   ", time);
+}
+
+char* get_month(char month_number[])
+{
+    if(!strcmp(month_number, "01"))
+        return "Jan";
+    if(!strcmp(month_number, "02"))
+        return "Feb";
+    if(!strcmp(month_number, "03"))
+        return "Mar";
+    if(!strcmp(month_number, "04"))
+        return "Apr";
+    if(!strcmp(month_number, "05"))
+        return "May";
+    if(!strcmp(month_number, "06"))
+        return "Jun";
+    if(!strcmp(month_number, "07"))
+        return "Jul";
+    if(!strcmp(month_number, "08"))
+        return "Aug";
+    if(!strcmp(month_number, "09"))
+        return "Sep";
+    if(!strcmp(month_number, "10"))
+        return "Oct";
+    if(!strcmp(month_number, "11"))
+        return "Nov";
+    if(!strcmp(month_number, "12"))
+        return "Dec";
 }
