@@ -12,15 +12,17 @@
 
 int main()
 {
-    struct dirent* d;
-    DIR* dh = opendir(".");
+    char str[] = "OS Assignment is due on Friday";
+    char *dup = malloc(strlen(str));
+    strcpy(dup, str);
 
-    while(d = readdir(dh))
+    char *token = malloc(strlen(dup));
+
+    token = strtok(dup, " ");
+    while(token)
     {
-        struct stat stats;
-        stat(d->d_name, &stats);
-
-        printf("%ld   ", stats.st_size);
-        printf("%s  \n", d->d_name);
+        printf("token = %s\n", token);
+        token = strtok(NULL, " ");
     }
+    printf("str = %s\n", str);
 }
