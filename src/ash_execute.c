@@ -15,10 +15,14 @@ void ash_execute()
     // Run commands
     if(!strcmp(command, "cd"))
         ash_cd();
-    if(!strcmp(command, "pwd"))
+    else if(!strcmp(command, "pwd"))
         ash_pwd();
-    if(!strcmp(command, "echo"))
+    else if(!strcmp(command, "echo"))
         ash_echo();
-    if(!strcmp(command, "ls"))
+    else if(!strcmp(command, "ls"))
         ash_ls();
+    else
+    {
+        ash_general();
+    }
 }

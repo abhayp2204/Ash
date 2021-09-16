@@ -8,8 +8,16 @@
 #include <grp.h>
 #include <fcntl.h>
 #include <time.h>
+#include <ctype.h>
+#include <signal.h>
+#include <stddef.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <sys/wait.h>
+#include <sys/sysinfo.h>
+#include<sys/stat.h>
+#include<sys/types.h>
+#include<sys/wait.h>
 
 #include "../include/functions.h"
 #include "general.c"
@@ -20,6 +28,7 @@
 #include "ash_pwd.c"
 #include "ash_echo.c"
 #include "ash_ls.c"
+#include "ash_general.c"
 
 int main()
 {

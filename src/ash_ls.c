@@ -87,11 +87,14 @@ void ls(const char* dir)
         printf("ash_ls: Unable to read directory\n");
         return;
     }
+    closedir(dh);
 
     struct stat stats;
-    display_total(dir);
-    dh = opendir(dir);
 
+    if(flag_l)
+        display_total(dir);
+
+    dh = opendir(dir);
     while(d = readdir(dh))
     {
         struct stat stats;
@@ -113,6 +116,8 @@ void ls(const char* dir)
         if(flag_l)
             printf("\n");
     }
+    closedir(dh);
+
     if(!flag_l)
         printf("\n");
 }

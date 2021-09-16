@@ -57,3 +57,21 @@ void get_command()
     strcpy(copy, parsed_input);
     strcpy(command, strtok(copy, " "));
 }
+
+int get_number_of_tokens()
+{
+	char* copy = malloc(strlen(parsed_input));
+	char* token = malloc(strlen(parsed_input));
+
+	strcpy(copy, parsed_input);
+	token = strtok(copy, " ");
+	int number_of_tokens = 0;
+
+	while(token)
+	{
+		number_of_tokens++;
+		token = strtok(NULL, " ");
+	}
+
+	return number_of_tokens;
+}

@@ -19,6 +19,9 @@ void get_input()
 
 void display_banner()
 {
+    if(flag_input)
+        printf("\n");
+        
     gethostname(host_name, sizeof(host_name));
     memset(cwd, 0, sizeof(cwd));
     getcwd(cwd, sizeof(cwd));
@@ -78,15 +81,15 @@ void parse_and_execute()
     {
         // User wants to exit
         if(flag_exit)
-        return;
+            return;
 
         // Parsing complete
         if(parsing_complete)
-        break;
+            break;
 
         // There is no input
         if(!strlen(input))
-        return;
+            return;
 
         // Parse by ;
         int i = 0;
