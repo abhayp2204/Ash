@@ -21,8 +21,8 @@ void ash_execute()
         ash_echo();
     else if(!strcmp(command, "ls"))
         ash_ls();
+    else if(!strcmp(command, "pinfo"))
+        ash_pinfo();
     else
-    {
         ash_general();
-    }
 }

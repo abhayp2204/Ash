@@ -28,6 +28,7 @@
 #include "ash_pwd.c"
 #include "ash_echo.c"
 #include "ash_ls.c"
+#include "ash_pinfo.c"
 #include "ash_general.c"
 
 int main()

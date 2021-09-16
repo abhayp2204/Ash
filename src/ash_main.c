@@ -19,9 +19,6 @@ void get_input()
 
 void display_banner()
 {
-    if(flag_input)
-        printf("\n");
-        
     gethostname(host_name, sizeof(host_name));
     memset(cwd, 0, sizeof(cwd));
     getcwd(cwd, sizeof(cwd));
