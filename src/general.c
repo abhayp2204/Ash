@@ -75,3 +75,23 @@ int get_number_of_tokens()
 
 	return number_of_tokens;
 }
+
+int subdirectory_of_home(char *sub)
+{
+	// A subdirectory's path must be greater than home
+	if(strlen(sub) < strlen(home))
+		return 0;
+
+	// Check if the path is a subdirectory
+	for(int i = 0 ; i < strlen(home) ; i++)
+	{
+		if(sub[i] != home[i])
+			return 0;
+	}
+	return 1;
+}
+
+int at_home(char *path)
+{
+	return !strcmp(path, home);
+}

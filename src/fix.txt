@@ -1,1 +1,2 @@
-semicolon at end causes segfault
+semicolon at end causes segfault.
+exit doesnt work after wrong command.

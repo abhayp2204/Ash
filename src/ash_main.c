@@ -31,28 +31,12 @@ void display_banner()
         return;
     }
     // If the current directory is not a subdirectory of the home directory, display the entire path
-    if(strlen(cwd) < strlen(home))
+    if(!subdirectory_of_home(cwd))
     {
         printf("<%s@%s:%s> ", username, host_name, cwd);
         return;
     }
-    // Check if the current directory is a subdirectory of home
-    int sub_home = 1;
-    for(int i = 0 ; i < strlen(home) ; i++)
-    {
-        if(cwd[i] != home[i])
-        {
-            sub_home = 0;
-            break;
-        }
-    }
-    // If the current directory is not a subdirectory of home
-    if(!sub_home)
-    {
-        printf("<%s@%s:%s> ", username, host_name, cwd);
-        // printf("cwd = %s\n", cwd);
-        return;
-    }
+    
     // The current directory is a subdirectory of home
     // Print ~/<relative_path>
     char *dir = malloc(strlen(cwd) + 2);
