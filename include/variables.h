@@ -1,9 +1,11 @@
 #ifndef VAR_H
 #define VAR_H
 
-char host_name[256];
-char cwd[1024];
+#define MAX_CHILDREN 1024
+
 char username[256];
+char hostname[256];
+char cwd[1024];
 char home[1024];
 char input[1024];
 char parsed_input[1024];
@@ -12,6 +14,17 @@ char path[1024];
 char target[1024];
 char prev_dir[1024];
 
-int flag_exit = 0;
+int flag_exit;
+int flag_input;
+int flag_bg;
+int flag_z;
+int flag_handler;
+
+int number_of_children;
+ssize_t input_size = 1024;
+
+Process fg_process;
+Process bg_process;
+Process child_process[MAX_BG_PROCESSES];
 
 #endif
