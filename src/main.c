@@ -32,6 +32,7 @@
 #include "ash_pinfo.c"
 #include "ash_general.c"
 #include "ash_signals.c"
+#include "ash_repeat.c"
 
 int main()
 {

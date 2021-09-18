@@ -23,6 +23,8 @@ void ash_execute()
         ash_ls();
     else if(!strcmp(command, "pinfo"))
         ash_pinfo();
+    else if(!strcmp(command, "repeat"))
+        ash_repeat();
     else
         ash_general();
 }

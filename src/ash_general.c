@@ -8,14 +8,14 @@ void remove_and();
 
 void ash_general()
 {
-    // Implement later
-    if(0)
+    flag_bg = is_background();
+    
+    // If the background process pool is full
+    if(flag_bg && number_of_children == MAX_BG_PROCESSES)
     {
         printf("ash_general: Background process pool is full\n");
         return;
     }
-
-    flag_bg = is_background();
 
     if(flag_bg && number_of_children == MAX_BG_PROCESSES)
     {
