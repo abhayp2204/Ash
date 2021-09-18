@@ -31,13 +31,22 @@
 #include "ash_ls.c"
 #include "ash_pinfo.c"
 #include "ash_general.c"
+#include "ash_signals.c"
 
 int main()
 {
+    struct sigaction sa;
+    sa.sa_handler = &handler;
+    sa.sa_flags = SA_RESTART;
+    sigaction(SIGCHLD, &sa, NULL);
+
     get_home();
+    initialize_children();
 
     while(!flag_exit)
     {
         ash_main();
     }
+
+    kill_children();
 }

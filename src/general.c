@@ -95,3 +95,8 @@ int at_home(char *path)
 {
 	return !strcmp(path, home);
 }
+
+void wprint(char *str)
+{
+	write(STDOUT_FILENO, str, strlen(str));
+}

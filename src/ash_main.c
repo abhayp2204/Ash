@@ -1,7 +1,8 @@
 #include "../include/functions.h"
 
-void get_input();
+void flush_stdin();
 void display_banner();
+void get_input();
 void parse_and_execute();
 
 void ash_main()
@@ -9,6 +10,13 @@ void ash_main()
     display_banner();
     get_input();
     parse_and_execute();
+
+    flag_handler = 0;
+}
+
+void flush_stdin()
+{
+    while(getchar() != '\n');
 }
 
 void get_input()
@@ -19,21 +27,25 @@ void get_input()
 
 void display_banner()
 {
+    char banner[2048];
+
     gethostname(host_name, sizeof(host_name));
     memset(cwd, 0, sizeof(cwd));
     getcwd(cwd, sizeof(cwd));
     getlogin_r(username, sizeof(username));
 
-    // If we are at home directory, display ~
     if(!strcmp(cwd, home))
     {
-        printf("<%s@%s:~> ", username, host_name);
+        sprintf(banner, "<%s@%s:~> ", username, host_name);
+        wprint(banner);
         return;
     }
+
     // If the current directory is not a subdirectory of the home directory, display the entire path
     if(!subdirectory_of_home(cwd))
     {
-        printf("<%s@%s:%s> ", username, host_name, cwd);
+        sprintf(banner, "<%s@%s:%s> ", username, host_name, cwd);
+        wprint(banner);
         return;
     }
     
@@ -47,8 +59,9 @@ void display_banner()
     {
         dir[j++] = cwd[i];
     }
-    dir[j] = '\0';                                  // why tho?
-    printf("<%s@%s:%s> ", username, host_name, dir);
+    dir[j] = '\0';                                 
+    sprintf(banner, "<%s@%s:%s> ", username, host_name, dir);
+    wprint(banner);
     // printf("\n\ncwd = %s\n", cwd);
     // printf("size of cwd = %ld\n", strlen(cwd));
     free(dir);

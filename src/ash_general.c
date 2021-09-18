@@ -1,5 +1,7 @@
+#include "../include/shell.h"
 #include "../include/variables.h"
 #include "../include/functions.h"
+#include "ash_child.c"
 
 int is_background();
 void remove_and();
@@ -15,8 +17,14 @@ void ash_general()
 
     flag_bg = is_background();
 
+    if(flag_bg && number_of_children == MAX_BG_PROCESSES)
+    {
+        printf("ash_general: No space left for more background processes! :(\n");
+        return;
+    }
+
     // Create a child process
-    int pid = fork();
+    pid_t pid = fork();
 
     // If fork fails
     if(pid == -1)
@@ -39,7 +47,6 @@ void ash_general()
 
         // Initialize args   
         int pos = 0, point = 0;
-
 		for(int i = 0 ; i < strlen(parsed_input) ; i++)
 		{
             if(point == get_number_of_tokens())
@@ -56,8 +63,6 @@ void ash_general()
 				args[point][pos++] = parsed_input[i];
 		}
 		args[point][pos] = '\0';
-
-        // printf("args = %s", args[2]);
 
         // Do not accept commands while a foreground process is running
 		if(flag_bg)
@@ -76,14 +81,16 @@ void ash_general()
     {
         // Background Process : Terminal can return
         if(flag_bg)
+        {
+            push_child(pid);
             return;
+        }
         
         // Foreground Process : Terminal must wait
-        fore_proc.pid = pid;
-        strcpy(fore_proc.name, command);
+        fg_process.pid = pid;
+        strcpy(fg_process.name, command);
         waitpid(pid, NULL, 0);
-
-        fore_proc.pid = -1;
+        fg_process.pid = -1;
     }
 }
 
