@@ -1,7 +1,3 @@
-#include "../include/functions.h"
-#include "../include/variables.h"
-
-// Functions
 int no_argument();
 int multiple_arguments();
 void extract_path();
@@ -10,7 +6,7 @@ int invalid_target();
 
 void ash_cd()
 {
-    // No argument : Go to home
+    // Handle wrong number of arguments
     if(no_argument())
     {
         chdir(home);
@@ -23,8 +19,10 @@ void ash_cd()
     extract_target();
     if(invalid_target()) return;
 
-    // Go to target
+    // Used for cd -
     strcpy(prev_dir, cwd);
+
+    // Go to target
     chdir(target);
 }
 
@@ -74,8 +72,6 @@ int invalid_target()
     if(stat(target, &st) != 0)
 	{
 		printf("ash_cd: Path specified does not exist\n");
-		// newlerr();
-		// suc_flag = 1;
 		return 1;
 	}
     return 0;
