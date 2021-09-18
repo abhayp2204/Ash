@@ -9,7 +9,7 @@ void remove_and();
 void ash_general()
 {
     flag_bg = is_background();
-    
+
     // If the background process pool is full
     if(flag_bg && number_of_children == MAX_BG_PROCESSES)
     {

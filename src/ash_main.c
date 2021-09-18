@@ -22,6 +22,8 @@ void flush_stdin()
 void get_input()
 {
     fgets(input, sizeof(input), stdin);
+    // input = malloc(input_size);
+    // getline(&input, &input_size, stdin);
     // printf("input = %s\n", input);
 }
 

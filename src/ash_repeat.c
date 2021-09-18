@@ -3,21 +3,17 @@
 #include "../include/variables.h"
 
 int get_repeat_number();
-void get_repeat_args();
+void get_repeat_command();
 
 void ash_repeat()
 {
     char *repeat_command = malloc(strlen(parsed_input));
-    char *alter = malloc(strlen(parsed_input));
     int repeat_number;
 
     repeat_number = get_repeat_number();
-    for(int i = 9 ; i < strlen(parsed_input) ; i++)
-        alter[i-9] = parsed_input[i];
-    alter[strlen(parsed_input) - 9] = '\0';
+    get_repeat_command();
 
-    strcpy(parsed_input, alter);
-
+    // Execute the modified parsed input n times
     for(int i = 0 ; i < repeat_number ; i++)
         ash_execute();
 }
@@ -36,34 +32,25 @@ int get_repeat_number()
     return repeat_number;
 }
 
-void get_repeat_args()
+void get_repeat_command()
 {
-    char *token = malloc(strlen(parsed_input));
-    char *copy = malloc(strlen(parsed_input));
-    char *args[10];
-    for(int i = 0 ; i < 10 ; i++)
-        args[i] = malloc(10);
+    // Note : Here actual command refers to the string with repeat n omitted
+    // For example:
+    // command        = repeat 2 cd ..
+    // actual command = cd ..
 
-    strcpy(copy, parsed_input);
+    // Skip to the start of the actual command
+    int start = 0;
+    while(!is_space(parsed_input[start++]));
+    while(!is_space(parsed_input[start++]));
 
-    token = strtok(copy, " ");
-    token = strtok(NULL, " ");
-    token = strtok(NULL, " ");
-
-    int pos = 0;
-    while(token)
+    // Construct the actual command
+    char *new_parsed_input = malloc(strlen(parsed_input));
+    for(int i = start ; i < strlen(parsed_input) ; i++)
     {
-        strcpy(args[pos], token);
-        printf("args = %s | ", args[pos++]);
-        token = strtok(NULL, " ");
+        new_parsed_input[i-start] = parsed_input[i];
     }
-    args[pos] = NULL;
+    new_parsed_input[strlen(parsed_input) - start] = '\0';
 
-    for(int i = 0 ; i < 10 ; i++)
-    {
-        if(execvp(args[0], args) < 0)
-        {
-            printf("There was a problem\n");
-        }
-    }
+    strcpy(parsed_input, new_parsed_input);
 }
