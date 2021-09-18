@@ -34,7 +34,7 @@ void push_child(pid_t pid)
         printf("ash_tasks: No space left for more background processes! :(\n");
 }
 
-void kill_children()
+void kill_zombies()
 {
     for(int i = 0 ; i < MAX_BG_PROCESSES ; i++)
     {

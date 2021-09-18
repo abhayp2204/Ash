@@ -76,6 +76,11 @@ int get_number_of_tokens()
 	return number_of_tokens;
 }
 
+int at_home(char *path)
+{
+	return !strcmp(path, home);
+}
+
 int subdirectory_of_home(char *sub)
 {
 	// A subdirectory's path must be greater than home
@@ -89,11 +94,6 @@ int subdirectory_of_home(char *sub)
 			return 0;
 	}
 	return 1;
-}
-
-int at_home(char *path)
-{
-	return !strcmp(path, home);
 }
 
 void wprint(char *str)

@@ -1,72 +1,66 @@
-#include "../include/functions.h"
-
-void flush_stdin();
 void display_banner();
 void get_input();
 void parse_and_execute();
+
+char* get_relative_path(char cwd[]);
 
 void ash_main()
 {
     display_banner();
     get_input();
     parse_and_execute();
-
-    flag_handler = 0;
-}
-
-void flush_stdin()
-{
-    while(getchar() != '\n');
-}
-
-void get_input()
-{
-    fgets(input, sizeof(input), stdin);
-    // input = malloc(input_size);
-    // getline(&input, &input_size, stdin);
-    // printf("input = %s\n", input);
 }
 
 void display_banner()
 {
     char banner[2048];
 
-    gethostname(host_name, sizeof(host_name));
+    // Username, Hostname, cwd
+    getlogin_r(username, sizeof(username));
+    gethostname(hostname, sizeof(hostname));
     memset(cwd, 0, sizeof(cwd));
     getcwd(cwd, sizeof(cwd));
-    getlogin_r(username, sizeof(username));
 
-    if(!strcmp(cwd, home))
+    // Home directory : Display ~
+    if(at_home(cwd))
     {
-        sprintf(banner, "<%s@%s:~> ", username, host_name);
+        sprintf(banner, "<%s@%s:~> ", username, hostname);
         wprint(banner);
         return;
     }
 
-    // If the current directory is not a subdirectory of the home directory, display the entire path
+    // Not a subdirectory : Display the entire path
     if(!subdirectory_of_home(cwd))
     {
-        sprintf(banner, "<%s@%s:%s> ", username, host_name, cwd);
+        sprintf(banner, "<%s@%s:%s> ", username, hostname, cwd);
         wprint(banner);
         return;
     }
     
-    // The current directory is a subdirectory of home
-    // Print ~/<relative_path>
-    char *dir = malloc(strlen(cwd) + 2);
-    dir[0] = '~';
-    dir[1] = '/';
+    // Subdirectory : Display relative path
+    sprintf(banner, "<%s@%s:%s> ", username, hostname, get_relative_path(cwd));
+    wprint(banner);
+}
+
+char* get_relative_path(char cwd[])
+{
+    char *relative_path = malloc(strlen(cwd) + 2);
+    relative_path[0] = '~';
+    relative_path[1] = '/';
     int j = 2;
+
     for(int i = strlen(home) + 1 ; i < strlen(cwd) ; i++)
     {
-        dir[j++] = cwd[i];
+        relative_path[j++] = cwd[i];
     }
-    dir[j] = '\0';                                 
-    sprintf(banner, "<%s@%s:%s> ", username, host_name, dir);
-    wprint(banner);
-    // printf("\n\ncwd = %s\n", cwd);
-    // printf("size of cwd = %ld\n", strlen(cwd));
-    free(dir);
+    relative_path[j] = '\0';
+
+    return relative_path;
+}
+
+void get_input()
+{
+    fgets(input, sizeof(input), stdin);
 }
 
 void parse_and_execute()
@@ -110,7 +104,6 @@ void parse_and_execute()
         parsing_complete = 1;
 
         trim_spaces(parsed_input);
-        // printf("parsed_input = %s\n", parsed_input);
 
         ash_execute();
     }

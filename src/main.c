@@ -1,28 +1,7 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <errno.h>
-#include <unistd.h>
-#include <string.h>
-#include <dirent.h>
-#include <pwd.h>
-#include <grp.h>
-#include <fcntl.h>
-#include <time.h>
-#include <ctype.h>
-#include <signal.h>
-#include <stddef.h>
-#include <wait.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <sys/wait.h>
-#include <sys/sysinfo.h>
-#include<sys/stat.h>
-#include<sys/types.h>
-#include<sys/wait.h>
+#include "../include/shell.h"
 
-#include "../include/functions.h"
+// User defined files
 #include "general.c"
-
 #include "ash_main.c"
 #include "ash_execute.c"
 #include "ash_cd.c"
@@ -36,18 +15,23 @@
 
 int main()
 {
+    // Signal Processing
     struct sigaction sa;
     sa.sa_handler = &handler;
     sa.sa_flags = SA_RESTART;
     sigaction(SIGCHLD, &sa, NULL);
+    
+    get_home();                         // Home directory
+    initialize_children();              // Background processes set to null
 
-    get_home();
-    initialize_children();
-
+    // Ruh Ash Shell
     while(!flag_exit)
     {
+        flag_handler = 0;
+
         ash_main();
     }
 
-    kill_children();
+    // Clean
+    kill_zombies();
 }
