@@ -49,50 +49,50 @@ This is my implementation of a shell. Initially created to develop a deeper unde
 - Parsed the input to individual commands and executes each command one by one
 - Calls ash_execute.c
 
-### ash_execute.c
+#### ash_execute.c
 - Gets the command word from the parsed input ie cd <path> ---> cd
 - Calls the respective function using the command word
 
-### ash_cd.c
+#### ash_cd.c
 - Implements the bash cd command
 
-### ash_pwd.c
+#### ash_pwd.c
 - Implements the bash pwd command
 
-### ash_echo.c
+#### ash_echo.c
 - Implements the bash echo command
 
-### ash_lsc.c
+#### ash_lsc.c
 - Extracts the `path` from the input
 - Calls ash_ls.c with `path` as input
 
-### ash_ls.c
+#### ash_ls.c
 - Implements the bash ls command
 - This one was tough :(
 
-### ash_pinfo.c
+#### ash_pinfo.c
 - Displays Process ID
 - Process Status
 - Process Memory
 - Process Path
 
-### ash_repeat.c
+#### ash_repeat.c
 - Repeats a command n times
 
-### ash_general.c
+#### ash_general.c
 - Executes other commands using the exec family of functions
 - Handles forking
 
-### ash_child.c
+#### ash_child.c
 - Initializes the process structure
 - Pushes a child to the process structure
 - Kills zombies ie Closes running processes after ash is closed
 
-### ash_signals.c
+#### ash_signals.c
 - Awaits the `SIGCHLD` signal and runs the `handler()` function
 - The `handler()` function takes care of removing the killed process from the structure
 
-### general.c
+#### general.c
 - Contains utility type functions
 - `wprint()` is basically `write()`, made for convenience
 - The rest have self-explanatory names
