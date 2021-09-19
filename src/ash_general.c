@@ -50,9 +50,7 @@ void ash_general()
 		for(int i = 0 ; i < strlen(parsed_input) ; i++)
 		{
             if(point == get_number_of_tokens())
-            {
                 break;
-            }
 
 			if(parsed_input[i] == ' ')
 			{
@@ -72,6 +70,12 @@ void ash_general()
         if(execvp(args[0], args) < 0)
         {
             printf("ash_general: Command not found\n");
+
+            // Terminal failed to exit immediately after wrong command was entered
+            // Hence, an extra exit was necessary
+            strcpy(parsed_input, "exit");
+            ash_execute();
+            
             return;
         }
         return;

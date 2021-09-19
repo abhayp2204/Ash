@@ -30,6 +30,7 @@ int main()
         flag_handler = 0;
 
         ash_main();
+        
     }
 
     // Clean
