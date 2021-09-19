@@ -42,6 +42,6 @@ This is my implementation of a shell. Initially created to develop a deeper unde
 - Kills zombie children.
 
 #### ash_main.c
-- Displays the banner ie <uname@hostname:cwd>.
+- Displays the banner ie < uname @ hostname : cwd >.
 - Accepts user input.
 - Parsed the input to individual commands and executes each command one by one.
