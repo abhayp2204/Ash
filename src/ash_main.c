@@ -71,7 +71,10 @@ void parse_and_execute()
     int pos = 0;
 
     trim_spaces(input);
-
+    input[strlen(input) - 1] = '\0';
+    strcat(input, ";cd .");
+    // printf("input = %s\n", input);
+    
     while(1)
     {
         // User wants to exit

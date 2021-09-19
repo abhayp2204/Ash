@@ -10,8 +10,6 @@ int invalid_target();
 
 void ash_cd()
 {
-    // printf("pi = %s\n", parsed_input);
-
     // Handle wrong number of arguments
     if(no_argument())
     {
