@@ -10,3 +10,9 @@ This is my implementation of a shell. Initially created to develop a deeper unde
 - ls
 - pinfo
 - repeat
+
+## How to use
+- Download all the files and put them in a certain directory.
+- Navigate to that directory from the terminal.
+- Now just run *make*. This will create an executable *ash* file.
+- Now run *./ash* to execute this file.
