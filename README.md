@@ -20,5 +20,19 @@ This is my implementation of a shell. Initially created to develop a deeper unde
 
 ## File Structure
 
-### Include
-_shell.h_
+### include
+
+#### shell.h
+- Includes all the necessary header files.
+- Defines some global variables
+- Includes a structure to handle background processes.
+
+#### functions.h
+- Defines the functions used across the shell.
+
+#### variables.h
+- Contains all the global variables used in the shell.
+
+### src
+
+####
