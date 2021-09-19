@@ -102,4 +102,4 @@ This is my implementation of a shell. Initially created to develop a deeper unde
 - Run this using `make` command
 
 ## Assumptions
-`ash` can run 1024 background processes. This can be changed in the `shell.h` file as long as the number is reasonable. There are certain size limitations on the length of input strings, but it is more than enough for reasonably sized commands.
+`ash` can run 1024 background processes. This can be changed in the `shell.h` file. There are certain size limitations on the length of input strings, but it is more than enough for reasonably sized commands. Any errors will soon be fixed.
