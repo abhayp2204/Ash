@@ -102,9 +102,11 @@ This is my implementation of a shell. Initially created to develop a deeper unde
 - Run this using `make` command
 
 ## Assumptions
-`ash` can run 1024 background processes. This can be changed in the `shell.h` file. There are certain size limitations on the length of input strings, but it is more than enough for reasonably sized commands. Any errors will soon be fixed.
+- I have assumed that a command will not end with a semicolon ie `cd;`
+- `ash` can run 1024 background processes. This can be changed in the `shell.h` file. There are certain size limitations on the length of input strings, but it is more than enough for reasonably sized commands. Any errors will soon be fixed.
 
 ## Coding Practices
 - Readability was a priority while writing this code
 - Functions are named with the snake case convention ie function_name
 - The code is highly modularized. Many functions were used, keeping in mind that function calls cause negligible time overhead.
+- The latter part of the code hasn't been as modularized as I would like, but that will be changed soon.

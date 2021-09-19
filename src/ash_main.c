@@ -69,6 +69,9 @@ void parse_and_execute()
 {
     int parsing_complete = 0;
     int pos = 0;
+
+    trim_spaces(input);
+
     while(1)
     {
         // User wants to exit
@@ -94,7 +97,9 @@ void parse_and_execute()
         for(; input[pos] ; pos++)
         {
             if(input[pos] == ';')
-            break;
+            {
+                break;
+            }
 
             if(input[pos] == '\n')
             {
@@ -107,7 +112,6 @@ void parse_and_execute()
         if(pos >= strlen(input))
         parsing_complete = 1;
 
-        trim_spaces(parsed_input);
         strcpy(duplicate, parsed_input);
 
         ash_execute();
