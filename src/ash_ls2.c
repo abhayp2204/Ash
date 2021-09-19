@@ -17,29 +17,32 @@ void display_size(struct stat stats, struct dirent* d);
 void display_date_modified(struct stat stats, struct dirent* d);
 char* get_month(char month[]);
 
-void ash_ls(char path[])
+void ash_ls()
 {
+    char* t = malloc(10);
+
     // printf("input = %s\n", parsed_input);
     find_flags();
-    ls(path);
+    ls(".");
 
     reset_flags();
 }
 
 void find_flags()
 {
-    char* copy = malloc(strlen(parsed_input));
-    strcpy(copy, parsed_input);
     char delimiter[] = " ";
-    char* token = strtok(copy, delimiter);
+    char* token = strtok(parsed_input, delimiter);
     token = strtok(NULL, delimiter);
 
     while(token)
     {
         if(token[0] != '-')
         {
-            token = strtok(NULL, delimiter);
-            continue;
+            // printf("token = %s\n", token);
+            // chdir(token);
+
+            printf("ash_ls: Please use '-' for flags\n");
+            break;
         }
 
         // printf("token = %s\n", token);
@@ -58,7 +61,8 @@ void find_flags()
 
         if(flag_invalid)
         {
-            printf("ash_ls: Warning : Invalid flags were entered, only valid flags were considered\n");
+            printf("ash_ls: Invalid flags were entered\n");
+            reset_flags();
             return;
         }
 
@@ -105,8 +109,7 @@ void ls(const char* dir)
         {
             display_permissions(stats, d);
             display_number_of_links(stats, d);
-            // display_user_name(stats, d);
-            display_group_name(stats, d);
+            display_user_name(stats, d);
             display_group_name(stats, d);
             display_size(stats, d);
             display_date_modified(stats, d);
@@ -186,18 +189,14 @@ void display_number_of_links(struct stat stats, struct dirent* d)
 
 void display_user_name(struct stat stats, struct dirent* d)
 {
-    // struct passwd *user = getpwuid(stats.st_uid);
-    // printf("%s   ", user->pw_name);
-
-    printf("%s   ", username);
+    struct passwd *user = getpwuid(stats.st_uid);
+    printf("%s   ", user->pw_name);
 }
 
 void display_group_name(struct stat stats, struct dirent* d)
 {
-    // struct group *group = getgrgid(stats.st_gid);
-    // printf("%s   ", group->gr_name);
-
-    printf("%s   ", username);
+    struct group *group = getgrgid(stats.st_gid);
+    printf("%s   ", group->gr_name);
 }
 
 void display_size(struct stat stats, struct dirent* d)

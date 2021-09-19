@@ -16,7 +16,7 @@ void ash_execute()
     else if(!strcmp(command, "echo"))
         ash_echo();
     else if(!strcmp(command, "ls"))
-        ash_ls();
+        ash_lsc();
     else if(!strcmp(command, "pinfo"))
         ash_pinfo();
     else if(!strcmp(command, "repeat"))

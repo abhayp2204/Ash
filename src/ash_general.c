@@ -13,12 +13,6 @@ void ash_general()
     // If the background process pool is full
     if(flag_bg && number_of_children == MAX_BG_PROCESSES)
     {
-        printf("ash_general: Background process pool is full\n");
-        return;
-    }
-
-    if(flag_bg && number_of_children == MAX_BG_PROCESSES)
-    {
         printf("ash_general: No space left for more background processes! :(\n");
         return;
     }
@@ -75,7 +69,7 @@ void ash_general()
             // Hence, an extra exit was necessary
             strcpy(parsed_input, "exit");
             ash_execute();
-            
+
             return;
         }
         return;

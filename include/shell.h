@@ -25,7 +25,7 @@
 #include <sys/wait.h>
 
 // Constraints
-#define MAX_BG_PROCESSES 3
+#define MAX_BG_PROCESSES 1024
 #define NOT_CREATED -1
 
 // Child process structure with name of process and pid

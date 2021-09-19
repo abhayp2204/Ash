@@ -19,6 +19,8 @@ void push_child(pid_t pid)
     {
         if(child_process[i].pid == NOT_CREATED)
         {
+            // printf("i = %d\n", i);
+            // printf("pid = %d\n", pid);
             child_process[i].pid = pid;
             strcpy(child_process[i].name, command);
             child_process[i].pos = number_of_children++;
@@ -29,6 +31,7 @@ void push_child(pid_t pid)
 
     // for(int j = 0 ; j < MAX_BG_PROCESSES ; j++)
     //     printf("cp %d pid = %d\n", j+1, child_process[j].pid);
+    // printf("no of bg processes = %d\n", number_of_children);
 
     if(i == MAX_BG_PROCESSES)
         printf("ash_tasks: No space left for more background processes! :(\n");

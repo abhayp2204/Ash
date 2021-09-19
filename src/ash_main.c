@@ -87,6 +87,8 @@ void parse_and_execute()
         pos++;
 
         memset(parsed_input, 0, sizeof(parsed_input));
+        memset(duplicate, 0, sizeof(duplicate));
+
         for(; input[pos] ; pos++)
         {
             if(input[pos] == ';')
@@ -104,6 +106,7 @@ void parse_and_execute()
         parsing_complete = 1;
 
         trim_spaces(parsed_input);
+        strcpy(duplicate, parsed_input);
 
         ash_execute();
     }
