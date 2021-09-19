@@ -143,8 +143,12 @@ void process_status(char process_stat[])
 
     if(ch != '\0')
     {
-        printf("Process Status -- %c\n", ch);
-        return;
+        if(flag_bg)
+        {
+            printf("Process Status -- %c\n", ch);
+            return;
+        }
+        printf("Process Status -- %c+\n", ch);
     }
     printf("ash_pinfo: There was an error getting process status\n");
     fclose(fd);
