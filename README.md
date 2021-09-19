@@ -5,6 +5,8 @@ This is my implementation of a shell. Initially created to develop a deeper unde
 
 ## Built In Functions
 - cd
+- pwd
+- echo
 - ls
 - pinfo
 - repeat

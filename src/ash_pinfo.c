@@ -1,3 +1,4 @@
+#include "../include/shell.h"
 #include "../include/variables.h"
 #include "../include/functions.h"
 

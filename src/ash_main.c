@@ -1,4 +1,7 @@
-void display_banner();
+#include "../include/shell.h"
+#include "../include/functions.h"
+#include "../include/variables.h"
+
 void get_input();
 void parse_and_execute();
 

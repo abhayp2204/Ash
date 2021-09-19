@@ -14,16 +14,22 @@ void ash_general();
 void ash_repeat();
 
 // Utility functions
-void display();
+void display_banner();
 void get_home();
 void trim_spaces(char *str);
 int is_space(char c);
 int is_tab(char c);
 void get_command();
 int get_number_of_tokens();
+void wprint(char *str);
+int at_home(char *path);
+int subdirectory_of_home(char *sub);
 
 // Process handling functions
 void handler(int signal);
 void kill_children();
+void initialize_children();
+void kill_zombies();
+void push_child();
 
 #endif

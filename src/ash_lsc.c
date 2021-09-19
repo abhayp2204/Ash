@@ -1,8 +1,10 @@
+// ash_lsc : ls Controller
+// This file is responsible for parsing the ls input command
+// It basically extracts the path for ash_ls(path)
+
+#include "../include/shell.h"
 #include "../include/functions.h"
 #include "../include/variables.h"
-
-void find_flags();
-void reset_flags();
 
 void ash_lsc()
 {

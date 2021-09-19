@@ -1,7 +1,6 @@
 #include "../include/shell.h"
 #include "../include/variables.h"
 #include "../include/functions.h"
-#include "ash_child.c"
 
 int is_background();
 void remove_and();

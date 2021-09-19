@@ -1,3 +1,7 @@
+#include "../include/shell.h"
+#include "../include/functions.h"
+#include "../include/variables.h"
+
 int no_argument();
 int multiple_arguments();
 void extract_path();

@@ -22,7 +22,6 @@ int flag_z;
 int flag_handler;
 
 int number_of_children;
-ssize_t input_size = 1024;
 
 Process fg_process;
 Process bg_process;
