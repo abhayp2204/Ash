@@ -17,3 +17,8 @@ This is my implementation of a shell. Initially created to develop a deeper unde
 - Now just run `make`. This will create an executable `ash` file.
 - Now run `./ash` to execute this file.
 - `ash`  may not have execute permissions, in which case run `chmod +x ash`, and then run `./ash` again.
+
+## File Structure
+
+### Include
+#### shell.h
