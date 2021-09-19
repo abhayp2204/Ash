@@ -28,7 +28,7 @@
 #define MAX_BG_PROCESSES 1024
 #define NOT_CREATED -1
 
-// Child process structure with name of process and pid
+// Structure : Manages Background Processees
 typedef struct Process_st
 {
 	pid_t pid;

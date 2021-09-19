@@ -4,7 +4,6 @@
 
 void get_input();
 void parse_and_execute();
-
 char* get_relative_path(char cwd[]);
 
 void ash_main()
