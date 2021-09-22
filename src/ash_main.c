@@ -108,6 +108,7 @@ void parse_and_execute()
         strcpy(parsed_input, substring(input, pos2, pos));
         trim_spaces(parsed_input);
         
+        // Skip empty commands
         if(!strlen(parsed_input))
             continue;
         
