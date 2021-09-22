@@ -1,10 +1,12 @@
 # Specification 1 : IO Redirection
 ## write(>)
 - example : echo "Chloe Lock" > media.txt
+- The file should be created with permissions 0644 if it doesn't exist
 
 ## append(>>)
 
 ## read(<)
+- Error message if the input file doesn't exist
 
 # Specification 2 : Pipe
 

@@ -12,15 +12,18 @@ int main()
     
     get_home();                         // Home directory
     initialize_children();              // Background processes set to null
+    stdout_fd = dup(STDOUT_FILENO);
 
     // Ruh Ash Shell
     while(!flag_exit)
     {
         flag_handler = 0;
+        dup2(stdout_fd, STDOUT_FILENO);
         
         ash_main();
     }
 
     // Clean
+    close(stdout_fd);
     kill_zombies();
 }

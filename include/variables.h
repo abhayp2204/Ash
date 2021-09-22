@@ -23,6 +23,7 @@ int flag_z;
 int flag_handler;
 
 int number_of_children;
+int stdout_fd;
 
 Process fg_process;
 Process bg_process;
