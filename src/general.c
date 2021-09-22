@@ -106,3 +106,14 @@ void wprint(char *str)
 {
 	write(STDOUT_FILENO, str, strlen(str));
 }
+
+char* substring(char* str, int a, int b)
+{
+	char* substr = (char*)malloc(strlen(str) * sizeof(char));
+	for(int i = a ; i < b ; i++)
+	{
+		substr[i-a] = str[i];
+	}
+	substr[b-a-1] = '\0';
+	return substr;
+}

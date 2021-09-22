@@ -6,6 +6,7 @@ void ash_execute()
 {
     get_command();
     // printf("command = %s\n", command);
+    // printf("command length = %ld\n", strlen(command));
 
     // Exit
     if(!strcmp(command, "q") || !strcmp(command, "quit") || !strcmp(command, "exit"))

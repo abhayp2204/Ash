@@ -4,11 +4,9 @@
 
 // Functions
 void get_input();
-void parse_and_execute();
-void parse_and_execute2();
-
 void remove_leading_semicolons();
 void remove_trailing_semicolons();
+void parse_and_execute();
 
 char* get_relative_path(char cwd[]);
 
@@ -17,6 +15,8 @@ void ash_main()
 {
     display_banner();
     get_input();
+    remove_leading_semicolons();
+    remove_trailing_semicolons();
     parse_and_execute();
 }
 
@@ -72,67 +72,45 @@ void get_input()
     fgets(input, sizeof(input), stdin);
 }
 
-void parse_and_execute()
-{
-    int parsing_complete = 0;
-    int pos = 0;
-    while(1)
-    {
-        // User wants to exit
-        if(flag_exit)
-            return;
-
-        // Parsing complete
-        if(parsing_complete)
-            break;
-
-        // There is no input
-        if(!strlen(input))
-            return;
-
-        // Parse by ;
-        int i = 0;
-        while(input[pos] == ';')
-        pos++;
-
-        memset(parsed_input, 0, sizeof(parsed_input));
-        for(; input[pos] ; pos++)
-        {
-            if(input[pos] == ';')
-            break;
-
-            if(input[pos] == '\n')
-            {
-                parsing_complete = 1;
-                break;
-            }
-
-            parsed_input[i++] = input[pos];
-        }
-        if(pos >= strlen(input))
-        parsing_complete = 1;
-
-        trim_spaces(parsed_input);
-
-        ash_execute();
-    }
-}
-
-
 void remove_leading_semicolons()
 {
     int pos = 0;
     while(input[pos] == ';' || input[pos] == ' ')
         pos++;
-    strcpy(input, &input[pos]);
+    strcpy(input, substring(input, pos, strlen(input)));
 }
 
 void remove_trailing_semicolons()
 {
-    int pos = strlen(input) - 2;
+    int pos = strlen(input) - 1;
     while(input[pos] == ';' || input[pos] == ' ')
         pos--;
-    
-    strcpy(input + pos + 1, "\0");
-    input[pos + 1] = '\0';
+    strcpy(input, substring(input, 0, pos + 2));
+}
+
+void parse_and_execute()
+{
+    int pos = 0;
+    int pos2 = pos;
+    int flag_play = 1;
+
+    while(flag_play)
+    {
+        pos2 = pos;
+        while(input[pos++] != ';')
+        {
+            if(pos > strlen(input))
+            {
+                flag_play = 0;
+                break;
+            }
+        }
+        strcpy(parsed_input, substring(input, pos2, pos));
+        trim_spaces(parsed_input);
+        
+        if(!strlen(parsed_input))
+            continue;
+        
+        ash_execute();
+    }
 }

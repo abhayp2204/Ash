@@ -17,6 +17,7 @@ void ash_repeat();
 void display_banner();
 void get_home();
 void trim_spaces(char *str);
+char* substring(char* str, int a, int b);
 int is_space(char c);
 int is_space_str(char* c);
 int is_tab(char c);
