@@ -7,7 +7,6 @@ void get_input();
 void remove_leading_semicolons();
 void remove_trailing_semicolons();
 void parse_and_execute();
-
 char* get_relative_path(char cwd[]);
 
 // Main

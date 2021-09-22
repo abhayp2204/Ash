@@ -2,9 +2,12 @@
 #include "../include/functions.h"
 #include "../include/variables.h"
 
+void get_destination();
+
 void ash_execute()
 {
     get_command();
+    get_destination();
     // printf("command = %s\n", command);
     // printf("command length = %ld\n", strlen(command));
 
@@ -30,3 +33,14 @@ void ash_execute()
     else
         ash_general();
 }
+
+void get_command()
+{
+    // The command is the first word of the parsed input
+    char *copy = malloc(strlen(parsed_input));
+    strcpy(copy, parsed_input);
+    strcpy(command, strtok(copy, " "));
+}
+
+void get_destination()
+{}

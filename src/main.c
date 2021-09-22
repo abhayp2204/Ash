@@ -17,9 +17,8 @@ int main()
     while(!flag_exit)
     {
         flag_handler = 0;
-
-        ash_main();
         
+        ash_main();
     }
 
     // Clean

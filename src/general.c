@@ -56,14 +56,6 @@ int is_tab(char c)
     return (c == '\t');
 }
 
-void get_command()
-{
-    // The command is the first word of the parsed input
-    char *copy = malloc(strlen(parsed_input));
-    strcpy(copy, parsed_input);
-    strcpy(command, strtok(copy, " "));
-}
-
 int get_number_of_tokens()
 {
 	char* copy = malloc(strlen(parsed_input));

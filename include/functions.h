@@ -22,6 +22,7 @@ int is_space(char c);
 int is_space_str(char* c);
 int is_tab(char c);
 void get_command();
+void get_destination();
 int get_number_of_tokens();
 void wprint(char *str);
 int at_home(char *path);
