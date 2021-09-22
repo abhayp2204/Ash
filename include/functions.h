@@ -18,6 +18,7 @@ void display_banner();
 void get_home();
 void trim_spaces(char *str);
 int is_space(char c);
+int is_space_str(char* c);
 int is_tab(char c);
 void get_command();
 int get_number_of_tokens();

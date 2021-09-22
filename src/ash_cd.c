@@ -73,8 +73,7 @@ void extract_target()
 int invalid_target()
 {
     struct stat st;
-
-    if(!stat(target, &st))
+    if(stat(target, &st) != 0)
 	{
 		printf("ash_cd: Path specified does not exist\n");
 		return 1;

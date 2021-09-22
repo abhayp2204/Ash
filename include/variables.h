@@ -8,6 +8,7 @@ char hostname[256];
 char cwd[1024];
 char home[1024];
 char input[1024];
+char d_input[1024];
 char parsed_input[1024];
 char duplicate[1024];
 char command[1024];

@@ -2,10 +2,17 @@
 #include "../include/functions.h"
 #include "../include/variables.h"
 
+// Functions
 void get_input();
 void parse_and_execute();
+void parse_and_execute2();
+
+void remove_leading_semicolons();
+void remove_trailing_semicolons();
+
 char* get_relative_path(char cwd[]);
 
+// Main
 void ash_main()
 {
     display_banner();
@@ -69,12 +76,6 @@ void parse_and_execute()
 {
     int parsing_complete = 0;
     int pos = 0;
-
-    trim_spaces(input);
-    input[strlen(input) - 1] = '\0';
-    strcat(input, ";cd .");
-    // printf("input = %s\n", input);
-    
     while(1)
     {
         // User wants to exit
@@ -95,14 +96,10 @@ void parse_and_execute()
         pos++;
 
         memset(parsed_input, 0, sizeof(parsed_input));
-        memset(duplicate, 0, sizeof(duplicate));
-
         for(; input[pos] ; pos++)
         {
             if(input[pos] == ';')
-            {
-                break;
-            }
+            break;
 
             if(input[pos] == '\n')
             {
@@ -115,8 +112,27 @@ void parse_and_execute()
         if(pos >= strlen(input))
         parsing_complete = 1;
 
-        strcpy(duplicate, parsed_input);
+        trim_spaces(parsed_input);
 
         ash_execute();
     }
+}
+
+
+void remove_leading_semicolons()
+{
+    int pos = 0;
+    while(input[pos] == ';' || input[pos] == ' ')
+        pos++;
+    strcpy(input, &input[pos]);
+}
+
+void remove_trailing_semicolons()
+{
+    int pos = strlen(input) - 2;
+    while(input[pos] == ';' || input[pos] == ' ')
+        pos--;
+    
+    strcpy(input + pos + 1, "\0");
+    input[pos + 1] = '\0';
 }

@@ -1,0 +1,3 @@
+make
+clear
+./ash

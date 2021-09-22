@@ -46,6 +46,11 @@ int is_space(char c)
     return (c == ' ');
 }
 
+int is_space_str(char *str)
+{
+	return !strcmp(str, " ");
+}
+
 int is_tab(char c)
 {
     return (c == '\t');
