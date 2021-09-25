@@ -22,7 +22,6 @@
 #include <sys/sysinfo.h>
 #include <sys/stat.h>
 #include <sys/types.h>
-#include <sys/wait.h>
 
 // Constraints
 #define MAX_BG_PROCESSES 1024

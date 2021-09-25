@@ -3,6 +3,7 @@
 
 // Shell functions
 void ash_main();
+void ash_redirect();
 void ash_execute();
 void ash_cd();
 void ash_pwd();

@@ -95,6 +95,7 @@ void parse_and_execute()
 
     while(flag_play)
     {
+        flag_child_executed = 0;
         pos2 = pos;
         while(input[pos++] != ';')
         {
@@ -111,6 +112,13 @@ void parse_and_execute()
         if(!strlen(parsed_input))
             continue;
         
+
+        get_command();
+        ash_redirect();
+
+        if(flag_child_executed)
+            continue;
+
         ash_execute();
     }
 }

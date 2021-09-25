@@ -1,3 +1,0 @@
-make
-clear
-./ash

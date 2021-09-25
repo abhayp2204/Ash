@@ -66,9 +66,7 @@ void ash_general()
 
             // Terminal failed to exit immediately after wrong command was entered
             // Hence, an extra exit was necessary
-            strcpy(parsed_input, "exit");
-            ash_execute();
-
+            flag_exit = 1;
             return;
         }
         return;
