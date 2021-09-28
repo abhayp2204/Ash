@@ -1,14 +1,13 @@
 # Specification 1 : IO Redirection
 ## write(>)
-- example : echo "Chloe Lock" > media.txt
-- The file should be created with permissions 0644 if it doesn't exist
-
 ## append(>>)
-
 ## read(<)
-- Error message if the input file doesn't exist
+- Need to create escape sequence for semicolons.
+- cat works but echo does not (builtin).
 
 # Specification 2 : Pipe
+- example 1:  cat file.txt | wc
+- example 2:  cat sample2.txt | head -7 | tail -5
 
 # Specification 3 : IO and Pipe
 

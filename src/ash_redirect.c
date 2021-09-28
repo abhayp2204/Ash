@@ -153,6 +153,7 @@ void ash_redirect()
 
         waitpid(pid, NULL, 0);
         free(file_write);
+        free(file_read);
         free(copy);
         free(token);
 

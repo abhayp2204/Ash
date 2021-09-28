@@ -9,6 +9,7 @@ int flag_append;
 
 void ash_execute()
 {
+    get_command();
     // printf("pi = %s\n", parsed_input);
     // printf("command = %s\n", command);
     // printf("command length = %ld\n", strlen(command));

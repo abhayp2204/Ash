@@ -18,9 +18,6 @@ int main()
     while(!flag_exit)
     {
         flag_handler = 0;
-        
-        dup2(stdout_fd, STDOUT_FILENO);
-        
         ash_main();
     }
 

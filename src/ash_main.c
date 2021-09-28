@@ -114,7 +114,8 @@ void parse_and_execute()
         
 
         get_command();
-        ash_redirect();
+        // ash_redirect();
+        // ash_pipe();
 
         if(flag_child_executed)
             continue;
