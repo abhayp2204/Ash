@@ -109,7 +109,7 @@ void process_status(char process_stat[])
 {
     // Read temp 
     FILE *fd = fopen(process_stat, "r");
-    if(fd < 0)
+    if(fd == NULL)
     {
         printf("error\n");
         return;

@@ -33,6 +33,8 @@ void ash_execute()
         ash_pinfo();
     else if(!strcmp(command, "repeat"))
         ash_repeat();
+    else if(!strcmp(command, "jobs"))
+        ash_jobs();
     else
         ash_general();
 }

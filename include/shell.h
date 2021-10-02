@@ -27,12 +27,15 @@
 #define MAX_BG_PROCESSES 1024
 #define NOT_CREATED -1
 
+// typedefs
+typedef struct Process_st Process;
+
 // Structure : Manages Background Processees
-typedef struct Process_st
+struct Process_st
 {
 	pid_t pid;
 	char name[256];
 	int pos;
-}Process;
+};
 
 #endif
