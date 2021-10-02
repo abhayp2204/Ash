@@ -43,7 +43,7 @@ void ash_redirect()
 			if(fd_read < 0)
 			{
                 printf("ash_redirect: Input file not found\n");
-                flag_child_executed = 1;
+                flag_executed = 1;
 				close(fd_read);
 				return;
 			}
@@ -157,7 +157,7 @@ void ash_redirect()
         free(copy);
         free(token);
 
-        flag_child_executed = 1;
+        flag_executed = 1;
         return;
     }
 }
@@ -167,7 +167,7 @@ int mentioned_file(char* token)
     if(!token)
     {
         printf("ash_redirect: You forgot to mention a file\n");
-        flag_child_executed = 1;
+        flag_executed = 1;
         return 0;
     }
     return 1;

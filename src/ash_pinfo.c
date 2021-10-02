@@ -34,34 +34,35 @@ void ash_pinfo()
 char* extract_pid_string()
 {
     pid_t pid;
-    char* temp_pid = malloc(1024);
+    char* temp_pid = malloc(20);
     char* copy = malloc(strlen(parsed_input));
-    char* temp = malloc(1024);
+    char* temp = malloc(20);
 
     strcpy(copy, parsed_input);
     strtok(copy, " ");
     temp_pid = strtok(NULL, " ");
 
+    // pinfo without parameter
     if(!temp_pid)
     {
-        snprintf(temp, 10, "%d", getpid());
+        snprintf(temp, 20, "%d", getpid());
         return temp;
     }
+
     return temp_pid;
 }
 
 pid_t extract_pid_int()
 {
     pid_t pid;
-    char *temp_pid = malloc(10);
+    char *temp_pid = malloc(20);
+    strcpy(temp_pid, extract_pid_string());
 
     // If only "pinfo" is entered without a parameter
-    if(!strcmp(extract_pid_string(), ""))
+    if(!strlen(temp_pid))
         return getpid();    
 
-    strcpy(temp_pid, extract_pid_string());
     sscanf(temp_pid, "%d", &pid);
-
     return pid;
 }
 
@@ -115,6 +116,7 @@ void process_status(char process_stat[])
     }
 
     char ch;
+    char plus;
     int spaces = 0;
 
     while (1)
@@ -128,29 +130,20 @@ void process_status(char process_stat[])
         if(spaces == 2)
         {
             ch = fgetc(fd);
+            plus = fgetc(fd);
+            printf("Process Status -- %c%c\n", ch, plus);
             break;
         }
 
-        // End of file indicator
-        if(feof(fd))
+        if(spaces > 2)
         {
-            ch = '\0';
+            printf("ash_pinfo: There was an error getting process status\n");
             break;
         }
  
         // printf("%c", ch);
     }
 
-    if(ch != '\0')
-    {
-        if(flag_bg)
-        {
-            printf("Process Status -- %c\n", ch);
-            return;
-        }
-        printf("Process Status -- %c+\n", ch);
-    }
-    printf("ash_pinfo: There was an error getting process status\n");
     fclose(fd);
 }
 

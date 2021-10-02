@@ -1,3 +1,8 @@
+#include "include/shell.h"
+#include "include/functions.h"
+#include "include/variables.h"
+#include "src/general.c"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -9,17 +14,15 @@ int is_dir(char* path);
 
 int main()
 {
-    char path[50];
-    fgets(path, sizeof(path), stdin);
-    path[strlen(path)-1] = '\0';
+    char *path = malloc(50);
+    strcpy(path, "cat < note.md | wc < file.txt");
 
-    printf("%s\n", is_dir(path)?"Valid":"Invalid");
-}
+    char *token = malloc(50);
+    token = strtok(path, "|");
 
-int is_dir(char* path)
-{    
-    DIR* dir = opendir(path);
-    if(!dir) return 0;
-    closedir(dir);
-    return 1;
+    while(token)
+    {
+        printf("token = %s\n", token);
+        token = strtok(NULL, "|");
+    }
 }

@@ -14,6 +14,7 @@ void ash_lsc();
 void ash_pinfo();
 void ash_general();
 void ash_repeat();
+void ash_dump();
 
 // Utility functions
 void display_banner();

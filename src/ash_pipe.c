@@ -2,77 +2,107 @@
 #include "../include/functions.h"
 #include "../include/variables.h"
 
+int get_pipe_number();
+
 void ash_pipe()
 {
-    int pipe_fd[2];
+    int number_of_pipes = get_pipe_number();
 
-    // Create a Pipe
-    if(pipe(pipe_fd) < 0)
+    // If there are no pipes, just check for redirects
+    if(!number_of_pipes)
     {
-        perror("ash_pipe: Could not create pipe\n");
+        ash_redirect();
         return;
     }
 
-    char* pipe_input = (char*)malloc(strlen(parsed_input) * sizeof(char));
-    char* copy = (char*)malloc(strlen(parsed_input) * sizeof(char));
+    flag_executed = 1;
+
+    char* copy = malloc(strlen(parsed_input) * sizeof(char));
     strcpy(copy, parsed_input);
 
-    int pos = 0;
-    int pos2 = 0;
-    int flag_play = 1;
-    while(flag_play)
+    char* token = malloc(strlen(parsed_input) * sizeof(char));
+    token = strtok(copy, "|");
+    
+    int new_input = STDIN_FILENO;
+
+    // If there are n pipes, there are n+1 tokens
+    // cat file.txt | head -4 | tail -2
+    //      0       |    1    |    2
+    for(int i = 0 ; i <= number_of_pipes ; i++)
     {
-        pos2 = pos;
-        while(copy[pos++] != '|')
+        // Create pipe
+        int pipe_fd[2];
+        if(pipe(pipe_fd) < 0)
         {
-            if(pos > strlen(copy))
-            {
-                flag_play = 0;
-                break;
-            }
+            perror("ash_pipe: Could not create pipe\n");
+            return;
         }
-        strcpy(pipe_input, substring(copy, pos2, pos));
-        trim_spaces(pipe_input);
-        strcpy(parsed_input, pipe_input);
-        get_command();
-        flag_child_executed = 1;
 
+        // We must execute each token
+        trim_spaces(token);
+        strcpy(parsed_input, token);
+
+        // Fork
         pid_t pid = fork();
-
-        // Forking Failed
         if(pid < 0)
         {
             perror("ash_pipe: Forking failed :(\n");
             return;
         }
         // Child Process
-        else if(pid == 0)
+        if(pid == 0)
         {
-            // printf("file name = %s\n", file_write);
+            // Input redirect
+            dup2(new_input, STDIN_FILENO);
 
-            // Write
-            dup2(pipe_fd[1], STDOUT_FILENO);
+            // Output redirect : For all but the last token
+            if(i != number_of_pipes)
+            {
+                dup2(pipe_fd[1], STDOUT_FILENO);
+            }
 
-            // Read
-            dup2(pipe_fd[0], STDIN_FILENO);
+            close(pipe_fd[0]);
+            ash_redirect();
 
-            flag_child_executed = 1;
+            // If the last token redirects output, we exit coz
+            // ash_redirect has executed the command
+            if(i == number_of_pipes)
+            {
+                for(int i = 0 ; i < strlen(token) ; i++)
+                {
+                    if(token[i] == '>')
+                        exit(0);
+                }
+            }
+
+            // Avoid multiple copies
+            for(int i = 0 ; i < strlen(token) ; i++)
+            {
+                if(token[i] == '<')
+                    exit(0);
+            }
+
             ash_execute();
             exit(0);
         }
         // Parent Process
         else
         {
-
             waitpid(pid, NULL, 0);
-            close(pipe_fd[0]);
             close(pipe_fd[1]);
-            free(copy);
-
-            flag_child_executed = 1;
-            return;
+            new_input = pipe_fd[0];
         }
-
-        ash_execute();
+        
+        token = strtok(NULL, "|");
     }
+}
+
+int get_pipe_number()
+{
+    int n = 0;
+    for(int i = 0 ; i < strlen(parsed_input) ; i++)
+    {
+        n += (parsed_input[i] == '|');
+    }
+    return n;
 }

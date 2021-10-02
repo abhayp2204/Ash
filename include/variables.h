@@ -21,7 +21,7 @@ int flag_input;
 int flag_bg;
 int flag_z;
 int flag_handler;
-int flag_child_executed;
+int flag_executed;
 
 int number_of_children;
 int stdout_fd;

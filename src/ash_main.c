@@ -95,7 +95,7 @@ void parse_and_execute()
 
     while(flag_play)
     {
-        flag_child_executed = 0;
+        flag_executed = 0;
         pos2 = pos;
         while(input[pos++] != ';')
         {
@@ -107,19 +107,17 @@ void parse_and_execute()
         }
         strcpy(parsed_input, substring(input, pos2, pos));
         trim_spaces(parsed_input);
+        strcpy(duplicate, parsed_input);
         
         // Skip empty commands
         if(!strlen(parsed_input))
             continue;
         
-
         get_command();
-        // ash_redirect();
-        // ash_pipe();
+        ash_pipe();
 
-        if(flag_child_executed)
-            continue;
-
-        ash_execute();
+        // Only execute if ash_pipe has not executed
+        if(!flag_executed)
+            ash_execute();
     }
 }
