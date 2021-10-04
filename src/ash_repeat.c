@@ -2,8 +2,10 @@
 #include "../include/functions.h"
 #include "../include/variables.h"
 
+// Can handle : repeat m repeat n <command>
+
 int get_repeat_number();
-void get_repeat_command();
+char* get_repeat_command();
 
 void ash_repeat()
 {
@@ -11,11 +13,14 @@ void ash_repeat()
     int repeat_number;
 
     repeat_number = get_repeat_number();
-    get_repeat_command();
+    strcpy(repeat_command, get_repeat_command());
 
     // Execute the modified parsed input n times
     for(int i = 0 ; i < repeat_number ; i++)
+    {
+        strcpy(parsed_input, repeat_command);
         ash_execute();
+    }
 }
 
 int get_repeat_number()
@@ -39,7 +44,7 @@ int get_repeat_number()
     return repeat_number;
 }
 
-void get_repeat_command()
+char* get_repeat_command()
 {
     // Note : Here actual command refers to the string with repeat n omitted
     // For example:

@@ -29,10 +29,12 @@ void display_banner()
     memset(cwd, 0, sizeof(cwd));
     getcwd(cwd, sizeof(cwd));
 
+    sprintf(banner, PRIMARY_COLOR "<%s@%s:" ANSI_COLOR_RESET, username, hostname);
+
     // Home directory : Display ~
     if(at_home(cwd))
     {
-        sprintf(banner, "<%s@%s:~> ", username, hostname);
+        strcat(banner, SECONDARY_COLOR "~> " ANSI_COLOR_RESET);
         wprint(banner);
         return;
     }
@@ -40,13 +42,16 @@ void display_banner()
     // Not a subdirectory : Display the entire path
     if(!subdirectory_of_home(cwd))
     {
-        sprintf(banner, "<%s@%s:%s> ", username, hostname, cwd);
         wprint(banner);
+        sprintf(banner, SECONDARY_COLOR "%s> " ANSI_COLOR_RESET, cwd);
+        wprint(banner);
+        // printf(SECONDARY_COLOR "%s" ANSI_COLOR_RESET, banner);
         return;
     }
     
     // Subdirectory : Display relative path
-    sprintf(banner, "<%s@%s:%s> ", username, hostname, get_relative_path(cwd));
+    wprint(banner);
+    sprintf(banner, SECONDARY_COLOR "%s> " ANSI_COLOR_RESET, get_relative_path(cwd));
     wprint(banner);
 }
 

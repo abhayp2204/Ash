@@ -21,8 +21,6 @@ Flags:
 -s : Print only the stopped processes
 
 ## sig
-
-
 ## fg
 ## bg
 

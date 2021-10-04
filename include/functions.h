@@ -17,6 +17,7 @@ void ash_repeat();
 void ash_jobs(); 
 void ash_sig(); 
 void ash_fg(); 
+void ash_bg(); 
 void ash_dump();
 
 // Utility functions
@@ -40,5 +41,6 @@ void kill_children();
 void initialize_children();
 void kill_zombies();
 void push_child();
+void pop_child(int i);
 
 #endif

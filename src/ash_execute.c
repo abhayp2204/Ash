@@ -39,6 +39,8 @@ void ash_execute()
         ash_sig();
     else if(!strcmp(command, "fg"))
         ash_fg();
+    else if(!strcmp(command, "bg"))
+        ash_bg();
     else
         ash_general();
 }

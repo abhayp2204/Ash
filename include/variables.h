@@ -16,6 +16,9 @@ char path[1024];
 char target[1024];
 char prev_dir[1024];
 
+char primary_color[20];
+char secondary_color[20];
+
 int flag_exit;
 int flag_input;
 int flag_bg;

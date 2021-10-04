@@ -2,8 +2,6 @@
 #include "../include/functions.h"
 #include "../include/variables.h"
 
-void pop_child(int i);
-
 void handler(int signal)
 {
     // Ignore termination of foreground processes
@@ -36,5 +34,6 @@ void pop_child(int i)
 {
 	child_process[i].pid = NOT_CREATED;
 	child_process[i].pos = NOT_CREATED;
+	child_process[i].name[0] = '\0';
 	number_of_children--;
 }
