@@ -35,6 +35,10 @@ void ash_execute()
         ash_repeat();
     else if(!strcmp(command, "jobs"))
         ash_jobs();
+    else if(!strcmp(command, "sig"))
+        ash_sig();
+    else if(!strcmp(command, "fg"))
+        ash_fg();
     else
         ash_general();
 }

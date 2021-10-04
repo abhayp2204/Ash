@@ -27,8 +27,15 @@ int get_repeat_number()
     token = strtok(copy, " ");
     token = strtok(NULL, " ");
 
-    int repeat_number;
-    sscanf(token, "%d", &repeat_number);
+    int repeat_number = (int)strtol(token, &token, 10);
+
+    // Wrong syntax
+    if(!repeat_number)
+    {
+        printf("ash_repeat : Syntax : repeat <positive_integer> <command>\n");
+        return 0;
+    }
+
     return repeat_number;
 }
 

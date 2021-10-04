@@ -49,6 +49,7 @@ void ash_jobs()
 
         token = strtok(NULL, " ");
     }
+    strcpy(duplicate, parsed_input);
 
     for(int i = 0 ; i < MAX_BG_PROCESSES ; i++)
     {

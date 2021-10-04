@@ -16,6 +16,7 @@ void ash_general();
 void ash_repeat();
 void ash_jobs(); 
 void ash_sig(); 
+void ash_fg(); 
 void ash_dump();
 
 // Utility functions
