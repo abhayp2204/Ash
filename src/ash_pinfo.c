@@ -2,9 +2,11 @@
 #include "../include/variables.h"
 #include "../include/functions.h"
 
-char* extract_pid_string();
+char* pid_string;
+
+void extract_pid_string();
 pid_t extract_pid_int();
-char* get_process_stat(char pid_string[]);
+char* get_process_stat();
 int valid_pid();
 void process_pid(pid_t pid);
 void process_status(char process_stat[]);
@@ -13,12 +15,13 @@ void process_path(pid_t pid);
 
 void ash_pinfo()
 {
+    pid_string = malloc(1024);
+    extract_pid_string();
+
     pid_t pid = extract_pid_int();
-    char* pid_string = malloc(1024);
     char* process_stat = malloc(1024);
     char* process_exe = malloc(1024);
 
-    strcpy(pid_string, extract_pid_string());
     strcpy(process_stat, get_process_stat(pid_string));
     strcpy(process_exe, get_process_stat(pid_string));
 
@@ -31,7 +34,7 @@ void ash_pinfo()
     process_path(pid);
 }
 
-char* extract_pid_string()
+void extract_pid_string()
 {
     pid_t pid;
     char* temp_pid = malloc(20);
@@ -45,28 +48,29 @@ char* extract_pid_string()
     // pinfo without parameter
     if(!temp_pid)
     {
-        snprintf(temp, 20, "%d", getpid());
-        return temp;
+        char* temp = malloc(1024);
+        sprintf(temp, "%d", master_pid);
+        strcpy(pid_string, temp);
+        return;
     }
 
-    return temp_pid;
+    strcpy(pid_string, temp_pid);
+    return;
 }
 
 pid_t extract_pid_int()
 {
     pid_t pid;
-    char *temp_pid = malloc(20);
-    strcpy(temp_pid, extract_pid_string());
 
     // If only "pinfo" is entered without a parameter
-    if(!strlen(temp_pid))
+    if(!strlen(pid_string))
         return getpid();    
 
-    sscanf(temp_pid, "%d", &pid);
+    sscanf(pid_string, "%d", &pid);
     return pid;
 }
 
-char* get_process_stat(char pid_string[])
+char* get_process_stat()
 {
     char *process_stat = malloc(1024);
 
@@ -77,7 +81,7 @@ char* get_process_stat(char pid_string[])
     return process_stat;
 }
 
-char* get_process_exe(char pid_string[])
+char* get_process_exec()
 {
     char *process_exe = malloc(1024);
 
@@ -94,7 +98,8 @@ int valid_pid(char process_stat[])
 
     if(stat(process_stat, &stats) == -1 && errno == ENOENT)
     {
-        printf("There is no process with pid %d\n", extract_pid_int());
+        char message[] = "There is no process with pid ";
+        cprint("ash_pinfo", strcat(message, pid_string));
         return 0;
     }
     return 1;
@@ -211,17 +216,16 @@ void process_path(pid_t pid)
         process_path[ret] = 0;
     }
     else
-        perror("readlink");
-
-    if(at_home(process_path))
     {
-        printf("Pathhhhh -- %s\n", process_path);
+        cprint("ash_pinfo", "Permission denied");
         return;
     }
 
-    if(!subdirectory_of_home(process_path))
+    printf("Path -- ");
+
+    if(at_home(process_path) || !subdirectory_of_path(process_path, home))
     {
-        printf("Path -- %s\n", process_path);
+        printf("%s\n", process_path);
         return;
     }
 
@@ -235,6 +239,6 @@ void process_path(pid_t pid)
         dir[j++] = process_path[i];
     }
     dir[j] = '\0';  
-    printf("Path -- %s\n", dir);
+    printf("%s\n", dir);
     free(dir);
 }

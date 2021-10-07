@@ -79,16 +79,16 @@ int at_home(char *path)
 	return !strcmp(path, home);
 }
 
-int subdirectory_of_home(char *sub)
+int subdirectory_of_path(char *sub, char* path)
 {
 	// A subdirectory's path must be greater than home
-	if(strlen(sub) < strlen(home))
+	if(strlen(sub) < strlen(path))
 		return 0;
 
 	// Check if the path is a subdirectory
-	for(int i = 0 ; i < strlen(home) ; i++)
+	for(int i = 0 ; i < strlen(path) ; i++)
 	{
-		if(sub[i] != home[i])
+		if(sub[i] != path[i])
 			return 0;
 	}
 	return 1;
@@ -97,6 +97,16 @@ int subdirectory_of_home(char *sub)
 void wprint(char *str)
 {
 	write(STDOUT_FILENO, str, strlen(str));
+}
+void wprintln(char *str)
+{
+	write(STDOUT_FILENO, str, strlen(str));
+	write(STDOUT_FILENO, "\n", 1);
+}
+
+void cprint(char* source_file, char* message)
+{
+	printf(ERROR_COLOR "%s : " ANSI_COLOR_MAGENTA "%s\n" ANSI_COLOR_RESET, source_file, message);
 }
 
 char* substring(char* str, int a, int b)

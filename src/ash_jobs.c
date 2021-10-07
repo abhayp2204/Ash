@@ -43,7 +43,7 @@ void ash_jobs()
 
         if(flag_invalid)
         {
-            printf("ash_jobs: Warning : Valid flags are -r and -s.\n");
+            cprint("ash_jobs", "Valid flags are -r and -s");
             return;
         }
 
@@ -65,7 +65,7 @@ void ash_jobs()
         FILE* fd = fopen(stat_file, "r");
         if(fd == NULL)
         {
-            perror("ash_jobs : There was an error opening the stat file :(\n");
+            cprint("ash_jobs", "Error opening the stat file :(");
             return;
         }
 

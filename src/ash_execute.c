@@ -41,6 +41,8 @@ void ash_execute()
         ash_fg();
     else if(!strcmp(command, "bg"))
         ash_bg();
+    else if(!strcmp(command, "replay"))
+        ash_replay();
     else
         ash_general();
 }

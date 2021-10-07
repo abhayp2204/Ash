@@ -17,9 +17,9 @@ void ash_pipe()
 
     flag_executed = 1;
 
+    // Strings to tokenize
     char* copy = malloc(strlen(parsed_input) * sizeof(char));
     strcpy(copy, parsed_input);
-
     char* token = malloc(strlen(parsed_input) * sizeof(char));
     token = strtok(copy, "|");
     
@@ -34,7 +34,7 @@ void ash_pipe()
         int pipe_fd[2];
         if(pipe(pipe_fd) < 0)
         {
-            perror("ash_pipe: Could not create pipe\n");
+            cprint("ash_pipe", "Could not create pipe");
             return;
         }
 
@@ -46,7 +46,7 @@ void ash_pipe()
         pid_t pid = fork();
         if(pid < 0)
         {
-            perror("ash_pipe: Forking failed :(\n");
+            cprint("ash_pipe", "Forking failed :(");
             return;
         }
         // Child Process

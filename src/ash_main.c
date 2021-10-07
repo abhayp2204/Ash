@@ -30,27 +30,24 @@ void display_banner()
     getcwd(cwd, sizeof(cwd));
 
     sprintf(banner, PRIMARY_COLOR "<%s@%s:" ANSI_COLOR_RESET, username, hostname);
+    wprint(banner);
 
     // Home directory : Display ~
     if(at_home(cwd))
     {
-        strcat(banner, SECONDARY_COLOR "~> " ANSI_COLOR_RESET);
-        wprint(banner);
+        wprint(SECONDARY_COLOR "~> " ANSI_COLOR_RESET);
         return;
     }
 
     // Not a subdirectory : Display the entire path
-    if(!subdirectory_of_home(cwd))
+    if(!subdirectory_of_path(cwd, home))
     {
-        wprint(banner);
         sprintf(banner, SECONDARY_COLOR "%s> " ANSI_COLOR_RESET, cwd);
         wprint(banner);
-        // printf(SECONDARY_COLOR "%s" ANSI_COLOR_RESET, banner);
         return;
     }
     
     // Subdirectory : Display relative path
-    wprint(banner);
     sprintf(banner, SECONDARY_COLOR "%s> " ANSI_COLOR_RESET, get_relative_path(cwd));
     wprint(banner);
 }
@@ -73,7 +70,13 @@ char* get_relative_path(char cwd[])
 
 void get_input()
 {
-    fgets(input, sizeof(input), stdin);
+    if(fgets(input, sizeof(input), stdin) == NULL)
+    {
+        // Ctrl D : Sends an EOF to fgets which returns NULL
+        printf("\n");
+        kill_zombies();
+        exit(0);
+    }
 }
 
 void remove_leading_semicolons()
@@ -118,7 +121,12 @@ void parse_and_execute()
         if(!strlen(parsed_input))
             continue;
         
-        get_command();
+        // get_command();
+        // if(!strcmp(command, "replay"))
+        // {
+        //     ash_replay();
+        //     continue;
+        // }
         ash_pipe();
 
         // Only execute if ash_pipe has not executed

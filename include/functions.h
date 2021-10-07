@@ -18,9 +18,11 @@ void ash_jobs();
 void ash_sig(); 
 void ash_fg(); 
 void ash_bg(); 
+void ash_replay(); 
 void ash_dump();
 
 // Utility functions
+void test();
 void display_banner();
 void get_home();
 void trim_spaces(char *str);
@@ -32,11 +34,16 @@ void get_command();
 void get_destination();
 int get_number_of_tokens();
 void wprint(char *str);
+void wprintln(char *str);
+void cprint(char *source_file, char* message);
 int at_home(char *path);
-int subdirectory_of_home(char *sub);
+int subdirectory_of_path(char *sub, char* path);
 
 // Process handling functions
-void handler(int signal);
+// handler* install_signal(int signum, handler* handler);
+void SIGCHLD_handler();
+void SIGTSTP_handler();
+void SIGINT_handler();
 void kill_children();
 void initialize_children();
 void kill_zombies();

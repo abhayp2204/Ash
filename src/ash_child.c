@@ -17,10 +17,9 @@ void push_child(pid_t pid)
     int i = 0;
     for(i = 0 ; i < MAX_BG_PROCESSES ; i++)
     {
+        if(child_process[i].pid == pid) return;
         if(child_process[i].pid == NOT_CREATED)
         {
-            // printf("i = %d\n", i);
-            // printf("pid = %d\n", pid);
             child_process[i].pid = pid;
             strcpy(child_process[i].name, command);
             child_process[i].pos = number_of_children++;

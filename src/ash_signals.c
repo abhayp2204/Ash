@@ -4,7 +4,18 @@
 
 void handler(int signal)
 {
-    // Ignore termination of foreground processes
+	switch(signal)
+	{
+		case SIGINT  : SIGINT_handler()  ; break;
+		case SIGTSTP : SIGTSTP_handler() ; break;
+		case SIGCHLD : SIGCHLD_handler() ; break;
+	}
+}
+
+// Terminate process
+void SIGCHLD_handler()
+{
+	// Ignore termination of foreground processes
     if(!flag_bg)
         return;
 
@@ -28,6 +39,41 @@ void handler(int signal)
 	}
 
     display_banner();
+}
+
+// Ctrl + Z
+void SIGTSTP_handler()
+{
+	if(getpid() != master_pid) return;
+	if(fg_process.pid == NOT_CREATED) return;
+
+	// Check if bg process pool is full
+	if(number_of_children == MAX_BG_PROCESSES)
+	{
+		perror("ash_signals : Background process pool is full\n");
+		return;
+	}
+
+	if(kill(fg_process.pid, SIGTSTP) < 0)
+	{
+		perror("ash_signals : Could not send foreground process to background\n");
+		return;	
+	}
+
+	strcpy(command, fg_process.name);
+	push_child(fg_process.pid);
+}
+
+// Ctrl + C
+void SIGINT_handler()
+{
+	for(int i = 0 ; i < MAX_BG_PROCESSES ; i++)
+    {
+        if(child_process[i].pid == NOT_CREATED)
+            continue;
+
+        kill(child_process[i].pid, SIGINT);
+    }
 }
 
 void pop_child(int i)

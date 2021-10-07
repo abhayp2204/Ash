@@ -41,5 +41,9 @@ Flags:
 ## 1 : Yes
 ## 2 : Yes
 ## 3 : Yes
-## 4 : No
+## 4 : Yes
 ## 5 : No
+
+# Problems
+sort media.txt | head -3 does not work
+ls -l ../.. prints 0 for size

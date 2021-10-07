@@ -12,7 +12,7 @@ void ash_sig()
     token = strtok(NULL, " ");
     if(!token)
     {
-        printf("ash_sig : Wrong syntax for sig : sig <process_pos> <signal_no>\n");
+        cprint("ash_sig", "Syntax : sig <process_pos> <signal_no>");
         return;
     }
     int pos = strtol(token, &token, 10);
@@ -20,7 +20,7 @@ void ash_sig()
     token = strtok(NULL, " ");
     if(!token)
     {
-        printf("ash_sig : Wrong syntax for sig : sig <process_pos> <signal_no>\n");
+        cprint("ash_sig", "Syntax : sig <process_pos> <signal_no>");
         return;
     }
     int signal = strtol(token, &token, 10);
@@ -28,7 +28,7 @@ void ash_sig()
     token = strtok(NULL, " ");
     if(token)
     {
-        printf("ash_sig : Wrong syntax for sig : sig <process_pos> <signal_no>\n");
+        cprint("ash_sig", "Syntax : sig <process_pos> <signal_no>");
         return;
     }
     strcpy(duplicate, parsed_input);
@@ -36,9 +36,9 @@ void ash_sig()
     // printf("pos = %d\n", pos);
     // printf("sg = %d\n", signal);
 
-    if(child_process[pos].pid == NOT_CREATED)
+    if(pos < 0 || child_process[pos].pid == NOT_CREATED)
     {
-        printf("ash_sig : This process position does not exist\n");
+        cprint("ash_sig", "This process position does not exist");
         return;
     }
 

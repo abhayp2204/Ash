@@ -33,6 +33,7 @@
 #define ANSI_COLOR_RESET   "\x1b[0m"
 #define PRIMARY_COLOR ANSI_COLOR_CYAN
 #define SECONDARY_COLOR ANSI_COLOR_YELLOW
+#define ERROR_COLOR ANSI_COLOR_RED
 
 // Global Variables
 #define MAX_BG_PROCESSES 1024
@@ -40,6 +41,7 @@
 
 // typedefs
 typedef struct Process_st Process;
+// typedef void handler(int, siginfo_t *, void *);
 
 // Structure : Manages Background Processees
 struct Process_st

@@ -4,15 +4,17 @@
 
 int main()
 {
-    // Signal Processing
-    struct sigaction sa;
-    sa.sa_handler = &handler;
-    sa.sa_flags = SA_RESTART;
-    sigaction(SIGCHLD, &sa, NULL);
+    master_pid = getpid();
+    fg_process.pid = NOT_CREATED;
+
+    signal(SIGCHLD, SIGCHLD_handler);
+	signal(SIGINT, SIGINT_handler);
+	signal(SIGTSTP, SIGTSTP_handler);
     
     get_home();                         // Home directory
     initialize_children();              // Background processes set to null
-    stdout_fd = dup(STDOUT_FILENO);
+
+    flag_last_replay = 0;
 
     // Ruh Ash Shell
     while(!flag_exit)
@@ -22,6 +24,5 @@ int main()
     }
 
     // Clean
-    close(stdout_fd);
     kill_zombies();
 }

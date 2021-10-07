@@ -27,6 +27,7 @@ void ash_general()
     }
 
     // Child process
+    // printf("pid = %d\n", pid);
     if(pid == 0)
     {
         if(flag_bg)
@@ -62,7 +63,7 @@ void ash_general()
         // Execute the command
         if(execvp(args[0], args) < 0)
         {
-            printf("ash_general: Command not found\n");
+            cprint("ash_general", "Command not found");
 
             // Terminal failed to exit immediately after wrong command was entered
             // Hence, an extra exit was necessary
@@ -84,7 +85,7 @@ void ash_general()
         // Foreground Process : Terminal must wait
         fg_process.pid = pid;
         strcpy(fg_process.name, command);
-        waitpid(pid, NULL, 0);
+        waitpid(pid, NULL, WUNTRACED);
         fg_process.pid = -1;
     }
 }

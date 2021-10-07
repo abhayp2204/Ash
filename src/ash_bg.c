@@ -13,7 +13,7 @@ void ash_bg()
 
     if(kill(bg_pid, SIGCONT) < 0)
     {
-        printf("ash_bg : Failed to continue the process\n");
+        cprint("ash_bg", "Failed to continue the process");
         return;
     }
 }
@@ -24,34 +24,42 @@ int get_job_number2()
     char* token = malloc(100);
     token = strtok(duplicate, " ");
 
-    // fg
+    // bg
     token = strtok(NULL, " ");
     if(token == NULL)
     {
-        printf("ash_bg : Syntax : bg <process_pos>\n");
+        cprint("ash_bg", "Syntax : bg <process_pos>");
         return -1;
     }
+
+    // Job number must be a digit
+    int flag_zero = !strcmp(token, "0");
     int job_no = strtol(token, &token, 10);
+    if(!flag_zero && job_no == 0)
+    {
+        cprint("ash_bg", "Job number should be a digit");
+        return -1;
+    }
     
-    // fg 1 2
+    // bg 1 2
     token = strtok(NULL, " ");
     if(token)
     {
-        printf("ash_bg : Syntax : bg <process_pos>\n");
+        cprint("ash_bg", "Syntax : bg <process_pos>");
         return -1;
     }
 
     // Negative job number
     if(job_no < 0)
     {
-        printf("ash_bg : job number must be positive\n");
+        cprint("ash_bg", "Job number must be positive");
         return -1;
     }
 
     // fg <invalid_no>
-    if(child_process[job_no].pid == NOT_CREATED)
+    if(job_no >= MAX_BG_PROCESSES || child_process[job_no].pid == NOT_CREATED)
     {
-        printf("ash_bg : No process with this job number\n");
+        cprint("ash_bg", "Process with this job number does not exist");
         return -1;
     }
 

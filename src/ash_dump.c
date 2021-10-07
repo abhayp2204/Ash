@@ -2,11 +2,20 @@
 // #include "../include/functions.h"
 // #include "../include/variables.h"
 
-// handler* intall_signal(int signal_no, handler* handler);
-
 // void handler(int signal)
 // {
-//     // Ignore termination of foreground processes
+// 	switch(signal)
+// 	{
+// 		case SIGINT  : SIGINT_handler()  ; break;
+// 		case SIGTSTP : SIGTSTP_handler() ; break;
+// 		case SIGCHLD : SIGCHLD_handler() ; break;
+// 	}
+// }
+
+// // Terminate process
+// void SIGCHLD_handler()
+// {
+// 	// Ignore termination of foreground processes
 //     if(!flag_bg)
 //         return;
 
@@ -30,6 +39,27 @@
 // 	}
 
 //     display_banner();
+// }
+
+
+
+// // Ctrl + Z
+// void SIGTSTP_handler()
+// {
+// 	return;
+// 	printf("ombie\n");
+// }
+
+// // Ctrl + C
+// void SIGINT_handler()
+// {
+// 	for(int i = 0 ; i < MAX_BG_PROCESSES ; i++)
+//     {
+//         if(child_process[i].pid == NOT_CREATED)
+//             continue;
+
+//         kill(child_process[i].pid, SIGINT);
+//     }
 // }
 
 // void pop_child(int i)

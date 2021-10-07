@@ -43,10 +43,6 @@ void find_flags()
             continue;
         }
 
-        // printf("token = %s\n", token);
-        // printf("len = %ld\n", strlen(token));
-        // printf("token[0] = %c\n", token[0]);
-
         for(int i = 1 ; i < strlen(token) ; i++)
         {
             if(token[i] == 'l')
@@ -59,7 +55,7 @@ void find_flags()
 
         if(flag_invalid)
         {
-            printf("ash_ls: Warning : Invalid flags were entered, only valid flags were considered\n");
+            cprint("ash_ls", "Invalid flags were entered, only valid flags were considered");
             return;
         }
 
@@ -83,7 +79,7 @@ void ls(const char* dir)
 
     if(!dh)
     {
-        printf("ash_ls: Unable to read directory\n");
+        cprint("ash_ls", "Could not read directory");
         return;
     }
     closedir(dh);
@@ -216,11 +212,17 @@ void display_date_modified(struct stat stats, struct dirent* d)
 
     char month[3];
     strcpy(month, get_month(month_number));
-    printf("%s ", month);
+    // printf("%s ", month);
+
+    char day[2];
+    // strftime(day, sizeof(day), "%D", localtime(&stats.st_mtime));
 
     char time[10];
-    strftime(time, sizeof(time), "%H:%M", localtime(&stats.st_mtime));
-    printf("%s   ", time);
+    // strftime(time, sizeof(time), "%H:%M", localtime(&stats.st_mtime));
+    // strftime(time, sizeof(time), "%s", ctime(&stats.st_mtime));
+    int n = strlen(ctime(&stats.st_mtime));
+    printf("%s\t", substring(ctime(&stats.st_mtime), 4, n-1-4-3));
+    // printf("%s   ", time);
 }
 
 char* get_month(char month_number[])

@@ -42,7 +42,7 @@ void ash_redirect()
             fd_read = open(file_read, O_RDONLY);
 			if(fd_read < 0)
 			{
-                printf("ash_redirect: Input file not found\n");
+                cprint("ash_redirect", "Input file not found");
                 flag_executed = 1;
 				close(fd_read);
 				return;
@@ -101,7 +101,7 @@ void ash_redirect()
     // Forking Failed
     if(pid < 0)
     {
-        perror("ash_redirect: Forking failed :(\n");
+        cprint("ash_redirect", "Forking failed :(");
         return;
     }
     // Child Process
@@ -123,7 +123,7 @@ void ash_redirect()
             int fd_write = open(file_write, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 			if(fd_write < 0)
 			{
-				perror("ash_redirect: There was an error opening the file\n");
+				cprint("ash_redirect", "Error opening the file");
                 exit(0);
 			}
 
@@ -136,7 +136,7 @@ void ash_redirect()
             int fd_write = open(file_write, O_WRONLY | O_CREAT | O_APPEND, 0644);
 			if(fd_write < 0)
 			{
-				perror("ash_redirect: There was an error opening the file\n");
+                cprint("ash_redirect", "Error opening the file");
                 exit(0);
 			}
 
@@ -166,7 +166,7 @@ int mentioned_file(char* token)
 {
     if(!token)
     {
-        printf("ash_redirect: You forgot to mention a file\n");
+        cprint("ash_redirect", "Mention a file next time?");
         flag_executed = 1;
         return 0;
     }

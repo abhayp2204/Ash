@@ -25,9 +25,13 @@ int flag_bg;
 int flag_z;
 int flag_handler;
 int flag_executed;
+int flag_replaying;
+int flag_last_replay;
 
 int number_of_children;
 int stdout_fd;
+
+pid_t master_pid;
 
 Process fg_process;
 Process bg_process;
