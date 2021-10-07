@@ -21,7 +21,6 @@ void main()
     // Ash Shell
     while(!flag_exit)
     {
-        flag_handler = 0;
         ash_main();
     }
 

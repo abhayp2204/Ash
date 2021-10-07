@@ -23,7 +23,6 @@ int flag_exit;
 int flag_input;
 int flag_bg;
 int flag_z;
-int flag_handler;
 int flag_executed;
 int flag_replaying;
 
