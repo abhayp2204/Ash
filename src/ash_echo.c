@@ -5,7 +5,7 @@
 void ash_echo()
 {
 	char *buff;
-	buff = (char*)malloc(1024);
+	buff = (char*)malloc(2048);
 	int pos = 0;
 	for(int i = 4; i < strlen(parsed_input) ; i++)
     {

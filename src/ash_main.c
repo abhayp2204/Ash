@@ -22,10 +22,7 @@ void ash_main()
 void display_banner()
 {
     char banner[2048];
-
-    // Username, Hostname, cwd
-    getlogin_r(username, sizeof(username));
-    gethostname(hostname, sizeof(hostname));
+    
     memset(cwd, 0, sizeof(cwd));
     getcwd(cwd, sizeof(cwd));
 
@@ -121,12 +118,7 @@ void parse_and_execute()
         if(!strlen(parsed_input))
             continue;
         
-        // get_command();
-        // if(!strcmp(command, "replay"))
-        // {
-        //     ash_replay();
-        //     continue;
-        // }
+        get_command();
         ash_pipe();
 
         // Only execute if ash_pipe has not executed

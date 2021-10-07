@@ -26,7 +26,6 @@ int flag_z;
 int flag_handler;
 int flag_executed;
 int flag_replaying;
-int flag_last_replay;
 
 int number_of_children;
 int stdout_fd;

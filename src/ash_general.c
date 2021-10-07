@@ -64,13 +64,9 @@ void ash_general()
         if(execvp(args[0], args) < 0)
         {
             cprint("ash_general", "Command not found");
-
-            // Terminal failed to exit immediately after wrong command was entered
-            // Hence, an extra exit was necessary
-            flag_exit = 1;
-            return;
+            exit(0);
         }
-        return;
+        exit(0);
     }
     // Parent process
     else

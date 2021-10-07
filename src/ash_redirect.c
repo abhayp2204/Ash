@@ -72,6 +72,9 @@ void ash_redirect()
             flag_append = 1;
             token = strtok(NULL, " ");
 
+            if(token[strlen(token) - 1] != parsed_input[strlen(parsed_input) -1])
+                token[strlen(token) - 1] = '\0';
+
             if(!mentioned_file(token))
                 return;
 

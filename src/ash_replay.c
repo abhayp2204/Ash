@@ -56,13 +56,9 @@ void replay()
     for(int i = 1 ; i <= execute_no ; i++)
     {
         sleep(interval);
-
-        if(i == execute_no)
-            flag_last_replay = 1;
-
         ash_execute();
     }
-    flag_last_replay = 0;
+    sleep(period % interval);
 }
 
 void parse_replay_input()
