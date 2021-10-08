@@ -25,6 +25,7 @@ void ash_pinfo()
     strcpy(process_stat, get_process_stat(pid_string));
     strcpy(process_exe, get_process_stat(pid_string));
 
+    // Invalid pid
     if(!valid_pid())
         return;
 

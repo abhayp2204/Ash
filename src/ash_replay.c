@@ -139,9 +139,9 @@ void parse_replay_input()
         token = strtok(NULL, " ");
     }
 
-    if(interval == 0 || period == 0)
+    if(interval <= 0 || period <= 0)
     {
-        cprint("ash_replay", "Syntax : replay -command <command> -interval <interval> -period <period>");
+        cprint("ash_replay", "Syntax : replay -command <command> -interval <positive integer> -period <positive integer>");
         flag_valid = 0;
         return;
     }

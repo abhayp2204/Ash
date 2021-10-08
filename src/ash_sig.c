@@ -42,5 +42,9 @@ void ash_sig()
         return;
     }
 
-    kill(child_process[pos].pid, signal);
+    if(kill(child_process[pos].pid, signal) < 0)
+    {
+        cprint("ash_sig", "Invalid signal");
+        return;
+    }
 }
