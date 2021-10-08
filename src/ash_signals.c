@@ -75,11 +75,3 @@ void SIGINT_handler()
         kill(child_process[i].pid, SIGINT);
     }
 }
-
-void pop_child(int i)
-{
-	child_process[i].pid = NOT_CREATED;
-	child_process[i].pos = NOT_CREATED;
-	child_process[i].name[0] = '\0';
-	number_of_children--;
-}

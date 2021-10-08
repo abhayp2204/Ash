@@ -44,7 +44,7 @@ void ash_execute()
     else if(!strcmp(command, "replay"))
         ash_replay();
     else
-        ash_general();
+        ash_general();    
 }
 
 void get_command()
