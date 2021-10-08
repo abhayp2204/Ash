@@ -2,15 +2,17 @@
 #include "../include/functions.h"
 #include "../include/variables.h"
 
+// Flags
 int flag_l = 0;
 int flag_a = 0;
 int flag_invalid = 0;
 
+// Functions
 void find_flags();
 void reset_flags();
-void ls(const char* dir);
-void display_total(const char* dir);
-void display_permissions(struct stat stats, struct dirent* d);
+void ls(char* dir);
+void display_total(char* dir);
+void display_permissions(struct stat stats, struct dirent* d, char* dir);
 void display_number_of_links(struct stat stats, struct dirent* d);
 void display_user_name(struct stat stats, struct dirent* d);
 void display_group_name(struct stat stats, struct dirent* d);
@@ -22,8 +24,15 @@ void ash_ls(char path[])
 {
     // printf("input = %s\n", parsed_input);
     find_flags();
-    ls(path);
 
+    if(chdir(path) == -1)
+    {
+        cprint("ash_ls", "Could not read directory");
+        return;
+    }
+    
+    ls(".");
+    chdir(cwd);
     reset_flags();
 }
 
@@ -72,7 +81,7 @@ void reset_flags()
     flag_invalid = 0;
 }
 
-void ls(const char* dir)
+void ls(char* dir)
 {
     struct dirent* d;
     DIR *dh = opendir(dir);
@@ -100,7 +109,8 @@ void ls(const char* dir)
 
         if(flag_l)
         {
-            display_permissions(stats, d);
+            // printf("path = %s\t", dir);
+            display_permissions(stats, d, dir);
             display_number_of_links(stats, d);
             // display_user_name(stats, d);
             display_group_name(stats, d);
@@ -118,7 +128,7 @@ void ls(const char* dir)
         printf("\n");
 }
 
-void display_total(const char* dir)
+void display_total(char* dir)
 {
     DIR* dh = opendir(dir);
     struct dirent* d;
@@ -150,7 +160,7 @@ void display_total(const char* dir)
     printf("total %d\n", total/2);
 }
 
-void display_permissions(struct stat stats, struct dirent* d)
+void display_permissions(struct stat stats, struct dirent* d, char* dir)
 {
     stat(d->d_name, &stats);
 
@@ -186,7 +196,7 @@ void display_user_name(struct stat stats, struct dirent* d)
     // struct passwd *user = getpwuid(stats.st_uid);
     // printf("%s   ", user->pw_name);
 
-    printf("%s   ", username);
+    printf("%s\t", username);
 }
 
 void display_group_name(struct stat stats, struct dirent* d)
@@ -194,7 +204,7 @@ void display_group_name(struct stat stats, struct dirent* d)
     // struct group *group = getgrgid(stats.st_gid);
     // printf("%s   ", group->gr_name);
 
-    printf("%s   ", username);
+    printf("%s\t", username);
 }
 
 void display_size(struct stat stats, struct dirent* d)
