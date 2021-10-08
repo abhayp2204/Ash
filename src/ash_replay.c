@@ -28,7 +28,7 @@ void replay()
 {
     int execute_no = period / interval;
 
-    // // Fork
+    // // Fork method
     // pid_t pid = fork();
     // if(pid < 0)
     // {
@@ -53,6 +53,7 @@ void replay()
     //     return;
     // }
 
+    // Loop method
     for(int i = 1 ; i <= execute_no ; i++)
     {
         sleep(interval);

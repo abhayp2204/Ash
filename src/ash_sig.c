@@ -9,6 +9,7 @@ void ash_sig()
     char* token = malloc(100);
     token = strtok(duplicate, " ");
 
+    // Syntax error : No parameters
     token = strtok(NULL, " ");
     if(!token)
     {
@@ -17,6 +18,7 @@ void ash_sig()
     }
     int pos = strtol(token, &token, 10);
 
+    // Syntax error : Insufficient parameters
     token = strtok(NULL, " ");
     if(!token)
     {
@@ -25,6 +27,7 @@ void ash_sig()
     }
     int signal = strtol(token, &token, 10);
 
+    // Syntax error : Too many parameters
     token = strtok(NULL, " ");
     if(token)
     {
@@ -33,15 +36,14 @@ void ash_sig()
     }
     strcpy(duplicate, parsed_input);
 
-    // printf("pos = %d\n", pos);
-    // printf("sg = %d\n", signal);
-
+    // Invalid process position
     if(pos < 0 || child_process[pos].pid == NOT_CREATED)
     {
         cprint("ash_sig", "This process position does not exist");
         return;
     }
 
+    // Invalid signal
     if(kill(child_process[pos].pid, signal) < 0)
     {
         cprint("ash_sig", "Invalid signal");
