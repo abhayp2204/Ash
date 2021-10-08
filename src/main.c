@@ -43,7 +43,7 @@ void get_system_data()
     // to cause malloc error (idk why). So it was done in fork so as to
     // not interfere with the rest of the program
 
-    // Piping for interprocess communication
+    // Piping for interprocess communication : Send username from child to parent
     int fd[2];
     if(pipe(fd) == -1)
     {
@@ -64,8 +64,10 @@ void get_system_data()
         close(fd[0]);
 
         getlogin_r(username, sizeof(username));
+
         write(fd[1], &username, sizeof(username));
         close(fd[1]);
+
         exit(0);
     }
     // Parent Process
@@ -76,6 +78,7 @@ void get_system_data()
 
         read(fd[0], &username, sizeof(username));
         close(fd[0]);
+        
         waitpid(pid, NULL, WUNTRACED);
     }
 
