@@ -98,7 +98,8 @@ int valid_pid(char process_stat[])
 
     if(stat(process_stat, &stats) == -1 && errno == ENOENT)
     {
-        char message[] = "There is no process with pid ";
+        char* message = malloc(1024);
+        strcpy(message, "There is no process with pid ");
         cprint("ash_pinfo", strcat(message, pid_string));
         return 0;
     }
