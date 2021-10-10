@@ -1,7 +1,7 @@
 # Ash - Abhay's Shell
 
 ## Introduction
-This is my implementation of a shell. Initially created to develop a deeper understanding of the Linux OS. However, I intend to make this as good as, if not better than Bash. This shell was written entirely in C. Some functions were implemented from scratch, while the rest made use of the exec() family of functions. The commands in this shell are semicolon separated. It also supports redirection and piping, and supports the Ctrl + Z, Ctrl + C and Ctrl + D signals.  
+This is my implementation of a shell. Initially created to develop a deeper understanding of the Linux OS. However, I intend to make this as good as, if not better than Bash. This shell was written entirely in C. Some functions were implemented from scratch, while the rest made use of the exec() family of functions. The commands in this shell are semicolon separated. It also supports redirection and piping, and supports the `Ctrl + Z`, `Ctrl + C` and `Ctrl + D` signals.  
 The shell has a `cyan` and `yellow` theme for prompt and a `red` and `magenta` theme for error messages.
 
 ## Built In Functions
