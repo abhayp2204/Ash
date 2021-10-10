@@ -43,11 +43,11 @@ The shell has a `cyan` and `yellow` theme for prompt and a `red` and `magenta` t
 ### src
 
 #### main.c
-- Gets the SIGCHLD signal ready
-- Initializes the process structure
-- Loop to run the shell
-- Kills zombie children
-- Calls ash_main.c
+    - Gets the SIGCHLD signal ready
+    - Initializes the process structure
+    - Loop to run the shell
+    - Kills zombie children
+    - Calls ash_main.c
 
 #### ash_main.c
 - Displays the banner ie < uname @ hostname : cwd >
