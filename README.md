@@ -5,17 +5,17 @@ This is my implementation of a shell. Initially created to develop a deeper unde
 The shell has a `cyan` and `yellow` theme for prompt and a `red` and `magenta` theme for error messages.
 
 ## Built In Functions
-- cd
-- pwd
-- echo
-- ls
-- pinfo
-- repeat
-- jobs
-- sig
-- fg
-- bg
-- replay
+- `cd`
+- `pwd`
+- `echo`
+- `ls`
+- `pinfo`
+- `repeat`
+- `jobs`
+- `sig`
+- `fg`
+- `bg`
+- `replay`
 
 ## How to use?
 - Download all the files and put them in a certain directory
