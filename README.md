@@ -138,7 +138,6 @@ The shell has a `cyan` and `yellow` theme for prompt and a `red` and `magenta` t
 - Run this using `make` command
 
 ## Assumptions
-- I have assumed that a command will not end with a semicolon ie `cd;`
 - `ash` can run 1024 background processes. This can be changed in the `shell.h` file. There are certain size limitations on the length of input strings, but it is more than enough for reasonably sized commands. Any errors will soon be fixed.
 
 ## Coding Practices
