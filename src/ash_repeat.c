@@ -35,7 +35,7 @@ int get_repeat_number()
     int repeat_number = (int)strtol(token, &token, 10);
 
     // Wrong syntax
-    if(!repeat_number || repeat_number < 0)
+    if(repeat_number <= 0)
     {
         cprint("ash_repeat", "Syntax : repeat <positive_integer> <command>");
         return 0;

@@ -1,6 +1,0 @@
-hello
-bye
-sara
-han
-[31mash_repeat : [35mSyntax : repeat <positive_integer> <command>
-[0m
