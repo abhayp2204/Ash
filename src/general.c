@@ -98,6 +98,7 @@ void wprint(char *str)
 {
 	write(STDOUT_FILENO, str, strlen(str));
 }
+
 void wprintln(char *str)
 {
 	write(STDOUT_FILENO, str, strlen(str));

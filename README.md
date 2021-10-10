@@ -1,7 +1,7 @@
 # Ash - Abhay's Shell
 
 ## Introduction
-This is my implementation of a shell. Initially created to develop a deeper understanding of the Linux OS. However, I intend to make this as good as, if not better than Bash. This shell was written entirely in C. Some functions were implemented from scratch, while the rest made use of the exec() family of functions. The commands in this shell are semicolon separated.   
+This is my implementation of a shell. Initially created to develop a deeper understanding of the Linux OS. However, I intend to make this as good as, if not better than Bash. This shell was written entirely in C. Some functions were implemented from scratch, while the rest made use of the exec() family of functions. The commands in this shell are semicolon separated. It also supports redirection and piping, and supports the Ctrl + Z, Ctrl + C and Ctrl + D signals.
 
 ## Built In Functions
 - cd
@@ -10,6 +10,11 @@ This is my implementation of a shell. Initially created to develop a deeper unde
 - ls
 - pinfo
 - repeat
+- jobs
+- sig
+- fg
+- bg
+- replay
 
 ## How to use?
 - Download all the files and put them in a certain directory
@@ -79,6 +84,34 @@ This is my implementation of a shell. Initially created to develop a deeper unde
 #### ash_repeat.c
 - Repeats a command n times
 
+#### ash_pipe
+- Supports piping
+
+#### ash_redirect.c
+- Supports redirection
+
+#### ash_jobs
+- Syntax : jobs -<flags>
+- Lists the processes spawned by this shell
+- -r flag lists only the running processes
+- -s flag lists only the stopped processes
+- -rs lists both running and stopped process, is equivalent to no flags
+
+#### ash_sig
+- Syntax : sig <process_position> <signal_number>
+- Sends the specified signal to the process with the given position
+
+#### ash_bg
+- Syntax : bg <process_position>
+- Changes the status of a process from stopped to running
+
+#### ash_fg
+- Syntax : fg <process_position>
+- Brings a process to the foreground
+
+#### ash_replay
+- Executes a command after a certain interval for a certain period of time
+
 #### ash_general.c
 - Executes other commands using the exec family of functions
 - Handles forking
@@ -89,12 +122,14 @@ This is my implementation of a shell. Initially created to develop a deeper unde
 - Kills zombies ie Closes running processes after ash is closed
 
 #### ash_signals.c
-- Awaits the `SIGCHLD` signal and runs the `handler()` function
-- The `handler()` function takes care of removing the killed process from the structure
+- Handles SIGCHLD, SIGTSTP, SIGINT signals
+- Ctrl C terminates a foreground process
+- Ctrl Z pulls a foreground process to the background
 
 #### general.c
 - Contains utility type functions
 - `wprint()` is basically `write()`, made for convenience
+- `cprint` is a specialized `printf` to display error messages in color
 - The rest have self-explanatory names
 
 ### Makefile
@@ -106,7 +141,6 @@ This is my implementation of a shell. Initially created to develop a deeper unde
 - `ash` can run 1024 background processes. This can be changed in the `shell.h` file. There are certain size limitations on the length of input strings, but it is more than enough for reasonably sized commands. Any errors will soon be fixed.
 
 ## Coding Practices
-- Readability was a priority while writing this code
-- Functions are named with the snake case convention ie function_name
-- The code is highly modularized. Many functions were used, keeping in mind that function calls cause negligible time overhead.
-- The latter part of the code hasn't been as modularized as I would like, but that will be changed soon.
+- Readability was a priority while writing this code.
+- Functions are named with the snake case convention ie function_name.
+- The code is highly modularized. Many functions were used.
